@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfSaper", "WpfSaper\WpfSaper.csproj", "{A9F88B85-77BF-4915-A8B2-3A027856DCC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfSaper.Tests", "WpfSaper.Tests\WpfSaper.Tests.csproj", "{76B8EF4E-6784-4621-8D49-62792AD51F9B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A9F88B85-77BF-4915-A8B2-3A027856DCC6} = {A9F88B85-77BF-4915-A8B2-3A027856DCC6}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

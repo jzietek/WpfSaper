@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WpfSaper.services;
 
-namespace WpfSaper.model
+namespace WpfSaper.Services.Impl
 {
-    public class RandomBooleansGenerator
+    public class RandomBooleansGenerator : IBooleansGenerator
     {
-        public bool[] GenerateRandomBooleans(int allCount, int positivesCount)
+        private readonly Random rand = new Random(DateTime.Now.Millisecond);
+
+        public bool[] GenerateBooleans(int allCount, int positivesCount)
         {
             if (positivesCount < 0)
             {
@@ -25,10 +24,9 @@ namespace WpfSaper.model
             }
 
             bool[] allBools = new bool[allCount];
-            Random rand = new Random(DateTime.Now.Millisecond);
-
             int assignedPositivesCount = 0;
-            do
+
+            while (assignedPositivesCount < positivesCount)
             {
                 int i = rand.Next(allCount);
                 if (!allBools[i])
@@ -36,9 +34,7 @@ namespace WpfSaper.model
                     allBools[i] = true;
                     assignedPositivesCount++;
                 }
-            }
-            while (assignedPositivesCount < positivesCount);
-
+            }           
             return allBools;
         }
     }

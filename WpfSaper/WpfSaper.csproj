@@ -68,10 +68,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="model\Minefield.cs" />
-    <Compile Include="model\MinefieldFactory.cs" />
-    <Compile Include="model\RandomBooleansGenerator.cs" />
-    <Compile Include="model\Tile.cs" />
+    <Compile Include="Model\Minefield.cs" />
+    <Compile Include="Model\MinefieldFactory.cs" />
+    <Compile Include="Services\IBooleansGenerator.cs" />
+    <Compile Include="Services\Impl\RandomBooleansGenerator.cs" />
+    <Compile Include="Model\Tile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,9 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Themes\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
