@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfSaper", "WpfSaper\WpfSaper.csproj", "{A9F88B85-77BF-4915-A8B2-3A027856DCC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfSaper.Tests", "WpfSaper.Tests\WpfSaper.Tests.csproj", "{76B8EF4E-6784-4621-8D49-62792AD51F9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9F88B85-77BF-4915-A8B2-3A027856DCC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9F88B85-77BF-4915-A8B2-3A027856DCC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9F88B85-77BF-4915-A8B2-3A027856DCC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9F88B85-77BF-4915-A8B2-3A027856DCC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76B8EF4E-6784-4621-8D49-62792AD51F9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B8EF4E-6784-4621-8D49-62792AD51F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B8EF4E-6784-4621-8D49-62792AD51F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B8EF4E-6784-4621-8D49-62792AD51F9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7ABBD9D9-F942-4907-94B4-019229F8DCFD}
+	EndGlobalSection
+EndGlobal
