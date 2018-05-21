@@ -4,9 +4,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfSaper"
+        xmlns:localVM="clr-namespace:WpfSaper.ViewModel"
         mc:Ignorable="d"
         Title="WPF Saper" Height="600" Width="600">
+    <Window.DataContext>
+        <localVM:MainWindowViewModel />
+    </Window.DataContext>        
     <Grid>
-        
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" >
+                <MenuItem Header="_Game">
+                    <MenuItem Header="_New game" Command="{Binding NewGameCommand}" InputGestureText="Ctrl+N" />
+                    <Separator />
+                    <MenuItem Header="E_xit" Command="{Binding ExitApplicationCommand}" InputGestureText="Ctrl+X" />
+                </MenuItem>
+                <MenuItem Header="_About" Command="{Binding ShowAboutBoxCommand}" InputGestureText="Ctrl+A" />
+            </Menu>
+            <Viewbox DataContext="{Binding Minefield}">
+                <ItemsControl x:Name="TileRows" ItemsSource="{Binding Tiles}" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Count}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Viewbox>
+        </DockPanel>      
     </Grid>
 </Window>

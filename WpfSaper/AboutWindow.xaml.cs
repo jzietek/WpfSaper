@@ -10,29 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WpfSaper
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AboutWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AboutWindow : Window
     {
-        public MainWindow()
+        public AboutWindow()
         {
             InitializeComponent();
-        }
-
-        private void NewGameCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void NewGameCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            MessageBox.Show("The New command was invoked");
         }
     }
 }
