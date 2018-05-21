@@ -4,31 +4,104 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfSaper.model
+namespace WpfSaper.Model
 {
     class Tile
     {
-        public enum TileState
+        public Tile(int id, bool hasBomb)
         {
-            Covered = 0,
-            Uncovered = 1,
-            Flagged = 2,
-            Exploded = 4            
-        };
+            Id = id;
+            HasBomb = hasBomb;
+        }
 
-        private readonly IList<Tile> neighbours = new List<Tile>();
+        private readonly List<Tile> neighbours = new List<Tile>();
 
-        public TileState State { get; private set; }
+        private TileState state = TileState.Covered;
 
-        public bool HasBomb { get; set; }
+        public event EventHandler<StateChangedEventArgs> StateChanged;
 
-        public IList<Tile> Neighbours { get { return this.neighbours; } }
-
-        public int BombsAround
+        public TileState State
         {
             get
             {
-                return this.neighbours.Count(x => x.HasBomb);
+                return state;
+            }
+            private set
+            {
+                if (state != value)
+                {
+                    state = value;
+                    OnStateChanged();
+                }
+            }
+        }
+
+        public int Id { get; private set; }
+
+        public bool HasBomb { get; private set; }
+
+        public IEnumerable<Tile> Neighbours { get { return this.neighbours; }}
+                
+        public int BombsAround { get { return this.neighbours.Count(x => x.HasBomb); }}
+        
+
+        public void SetNeighbours(IEnumerable<Tile> neighbours)
+        {
+            this.neighbours.Clear();
+            this.neighbours.AddRange(neighbours);
+        }
+
+        public void ToggleFlag()
+        {
+            if (State == TileState.Covered)
+            {
+                State = TileState.Flagged;
+                return;
+            }
+            if (State == TileState.Flagged)
+            {
+                State = TileState.Covered;
+                return;
+            }
+        }
+
+        public void UncoverTile()
+        {
+            if (State == TileState.Uncovered || State == TileState.Exploded)
+            {
+                return;
+            }
+
+            if (HasBomb)
+            {
+                State = TileState.Exploded;
+            }
+            else
+            {
+                State = TileState.Uncovered;                
+            }
+        }
+
+        private void OnStateChanged()
+        {
+            StateChanged?.Invoke(this, new StateChangedEventArgs(this.State));
+        }
+
+        public enum TileState
+        {
+            Covered = 0,
+            Flagged = 1,
+            Uncovered = 2,            
+            Exploded = 4
+        };
+
+        public class StateChangedEventArgs : EventArgs
+        {
+            public TileState CurrentState { get; private set; }
+
+            public StateChangedEventArgs(TileState currentState)
+            {
+                this.CurrentState = currentState;
             }
         }
     }

@@ -1,6 +1,6 @@
-﻿namespace WpfSaper.services
+﻿namespace WpfSaper.Services
 {
-    public interface IBooleansGenerator
+    interface IBooleansGenerator
     {
         bool[] GenerateBooleans(int allCount, int positivesCount);
     }

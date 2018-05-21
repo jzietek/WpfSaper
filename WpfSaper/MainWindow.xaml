@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfSaper"
         mc:Ignorable="d"
-        Title="WPF Saper" Height="400" Width="400">
+        Title="WPF Saper" Height="600" Width="600">
     <Grid>
         
     </Grid>

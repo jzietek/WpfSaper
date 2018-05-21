@@ -1,11 +1,23 @@
 ﻿using System;
-using WpfSaper.services;
+using System.Collections.Generic;
+using System.Linq;
+using WpfSaper.Services;
 
 namespace WpfSaper.Services.Impl
 {
-    public class RandomBooleansGenerator : IBooleansGenerator
+    class RandomBooleansGenerator : IBooleansGenerator
     {
-        private readonly Random rand = new Random(DateTime.Now.Millisecond);
+        private readonly Random rand;
+
+        public RandomBooleansGenerator()
+        {
+             this.rand = new Random(DateTime.Now.Millisecond);
+        }
+
+        public RandomBooleansGenerator(int seed)
+        {
+            this.rand = new Random(seed);
+        }
 
         public bool[] GenerateBooleans(int allCount, int positivesCount)
         {
@@ -24,17 +36,19 @@ namespace WpfSaper.Services.Impl
             }
 
             bool[] allBools = new bool[allCount];
-            int assignedPositivesCount = 0;
-
-            while (assignedPositivesCount < positivesCount)
+            if (allCount > 0)
             {
-                int i = rand.Next(allCount);
-                if (!allBools[i])
+                List<int> indices = new List<int>(Enumerable.Range(0, allCount));
+
+                int assignedPositivesCount = 0;
+                while (assignedPositivesCount < positivesCount)
                 {
-                    allBools[i] = true;
+                    int i = rand.Next(indices.Count - 1);
+                    allBools[indices[i]] = true;
+                    indices.RemoveAt(i);
                     assignedPositivesCount++;
                 }
-            }           
+            }
             return allBools;
         }
     }

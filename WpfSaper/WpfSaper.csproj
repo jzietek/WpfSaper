@@ -69,7 +69,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Minefield.cs" />
-    <Compile Include="Model\MinefieldFactory.cs" />
+    <Compile Include="Services\IMinefieldFactory.cs" />
+    <Compile Include="Services\Impl\MinefieldFactory.cs" />
     <Compile Include="Services\IBooleansGenerator.cs" />
     <Compile Include="Services\Impl\RandomBooleansGenerator.cs" />
     <Compile Include="Model\Tile.cs" />
