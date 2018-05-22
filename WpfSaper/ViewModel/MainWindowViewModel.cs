@@ -1,6 +1,7 @@
 ﻿using Gat.Controls;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +14,9 @@ using WpfSaper.Services.Impl;
 
 namespace WpfSaper.ViewModel
 {
-    class MainWindowViewModel
+    class MainWindowViewModel : INotifyPropertyChanged
     {
-        public MainWindowViewModel()
-        {
-            this.minefieldFactory = new MinefieldFactory(new RandomBooleansGenerator());
-            this.minefield = this.minefieldFactory.CreateNew(12, 12, 10); //TODO not to be harcoded
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private ICommand newGameCommand;
         private ICommand showAboutBoxCommand;
@@ -31,13 +28,27 @@ namespace WpfSaper.ViewModel
 
         private readonly IMinefieldFactory minefieldFactory;
 
+        public MainWindowViewModel()
+        {
+            this.minefieldFactory = new MinefieldFactory(new RandomBooleansGenerator());
+            this.minefield = this.minefieldFactory.CreateNew(12, 12, 10); //TODO not to be harcoded
+        }
+
         public Minefield Minefield
         {
             get
             {
                 return minefield;
-            } 
-        }
+            }
+            set
+            {
+                if (minefield != value)
+                {
+                    minefield = value;
+                    OnPropertyChanged("Minefield");
+                }
+            }
+        }        
 
         public ICommand ShowAboutBoxCommand
         {
@@ -99,23 +110,24 @@ namespace WpfSaper.ViewModel
             }
         }
 
-        private void HandleTileRightClicked(object arg)
+        private void OnPropertyChanged(string propName)
         {
-            MessageBox.Show("Right Click");
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
+
+        private void HandleTileRightClicked(object arg)
+        {            
+            (arg as Tile)?.ToggleFlag();
         }
 
         private void HandleTileClicked(object arg)
         {
-            Tile tile = arg as Tile;
-            if (tile != null)
-            {
-                MessageBox.Show("Clicked " + tile.Id);
-            }            
+            (arg as Tile)?.UncoverTile();
         }
 
         private void StartNewGame()
         {
-            MessageBox.Show("TODO Start new game");
+            this.Minefield = this.minefieldFactory.CreateNew(6, 6, 6);
         }
 
         private void ShowAboutBoxWindow()

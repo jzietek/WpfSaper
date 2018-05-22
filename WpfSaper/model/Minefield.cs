@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace WpfSaper.Model
 {
-    class Minefield : INotifyPropertyChanged
+    class Minefield
     {
-        private readonly List<List<Tile>> tiles;
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        private readonly List<List<Tile>> tiles;        
 
         public Minefield(List<List<Tile>> tiles)
         {
@@ -21,17 +19,7 @@ namespace WpfSaper.Model
             {
                 tile.StateChanged += Tile_StateChanged;
             }
-        }
-
-        private void Tile_StateChanged(object sender, Tile.StateChangedEventArgs e)
-        {
-            Tile tile = sender as Tile;
-            if (tile != null && e != null)
-            {
-                System.Diagnostics.Debug.WriteLine($"{tile.Id}: {e.CurrentState}");
-                HandleTileStateChange(tile, e.CurrentState);
-            }
-        }        
+        }               
 
         public List<List<Tile>> Tiles
         {
@@ -48,15 +36,14 @@ namespace WpfSaper.Model
                 return this.tiles.SelectMany(x => x.Select(y => y.HasBomb)).Count(z => z == true);
             }
         }
-        
-        private void OnPropertyChanged(string propName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-        }
 
-        private void HandleTileStateChange(Tile tile, Tile.TileState currentState)
+        private void Tile_StateChanged(object sender, Tile.StateChangedEventArgs e)
         {
-            //TODO
+            Tile tile = sender as Tile;
+            if (tile != null && e != null)
+            {
+                System.Diagnostics.Debug.WriteLine($"{tile.Id}: {e.CurrentState}");
+            }
         }
     }
 }

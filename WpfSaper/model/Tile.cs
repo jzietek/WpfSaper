@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace WpfSaper.Model
 {
-    class Tile
+    class Tile : INotifyPropertyChanged
     {
         public Tile(int id, bool hasBomb)
         {
@@ -20,6 +21,8 @@ namespace WpfSaper.Model
 
         public event EventHandler<StateChangedEventArgs> StateChanged;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public TileState State
         {
             get
@@ -32,6 +35,7 @@ namespace WpfSaper.Model
                 {
                     state = value;
                     OnStateChanged();
+                    OnPropertyChanged("State");
                 }
             }
         }
@@ -85,6 +89,11 @@ namespace WpfSaper.Model
         private void OnStateChanged()
         {
             StateChanged?.Invoke(this, new StateChangedEventArgs(this.State));
+        }
+
+        private void OnPropertyChanged(string propName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
 
         public enum TileState
