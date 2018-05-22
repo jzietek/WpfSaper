@@ -18,12 +18,14 @@ namespace WpfSaper.ViewModel
         public MainWindowViewModel()
         {
             this.minefieldFactory = new MinefieldFactory(new RandomBooleansGenerator());
-            this.minefield = this.minefieldFactory.CreateNew(10, 10, 10); //TODO not to be harcoded
+            this.minefield = this.minefieldFactory.CreateNew(12, 12, 10); //TODO not to be harcoded
         }
 
-        private ICommand showAboutBoxCommand;
         private ICommand newGameCommand;
+        private ICommand showAboutBoxCommand;
         private ICommand exitApplicationCommand;
+        private ICommand tileClickedCommand;
+        private ICommand tileRightClickedCommand;        
 
         private Minefield minefield;
 
@@ -71,7 +73,45 @@ namespace WpfSaper.ViewModel
                 }
                 return exitApplicationCommand;
             }
-        }        
+        }
+
+        public ICommand TileClickedCommand
+        {
+            get
+            {
+                if (tileClickedCommand == null)
+                {
+                    tileClickedCommand = new RelayCommand((arg) => { HandleTileClicked(arg); });
+                }
+                return tileClickedCommand;
+            }
+        }
+
+        public ICommand TileRightClickedCommand
+        {
+            get
+            {
+                if (tileRightClickedCommand == null)
+                {
+                    tileRightClickedCommand = new RelayCommand((arg) => { HandleTileRightClicked(arg); });
+                }
+                return tileRightClickedCommand;
+            }
+        }
+
+        private void HandleTileRightClicked(object arg)
+        {
+            MessageBox.Show("Right Click");
+        }
+
+        private void HandleTileClicked(object arg)
+        {
+            Tile tile = arg as Tile;
+            if (tile != null)
+            {
+                MessageBox.Show("Clicked " + tile.Id);
+            }            
+        }
 
         private void StartNewGame()
         {

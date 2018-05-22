@@ -6,11 +6,18 @@
         xmlns:local="clr-namespace:WpfSaper"
         xmlns:localVM="clr-namespace:WpfSaper.ViewModel"
         mc:Ignorable="d"
-        Title="WPF Saper" Height="600" Width="600">
-    <Window.DataContext>
-        <localVM:MainWindowViewModel />
-    </Window.DataContext>        
-    <Grid>
+        Title="WPF Saper" Height="600" Width="560">
+    <!--<Window.DataContext>
+        <localVM:MainWindowViewModel x:Name="mainWindowViewModel" />
+    </Window.DataContext>-->
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="SquareButton">
+            <Setter Property="MinWidth" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
+            <Setter Property="MinHeight" Value="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" />
+        </Style>
+        <localVM:MainWindowViewModel x:Key="mainWindowViewModel" />
+    </Window.Resources>
+    <Grid DataContext="{StaticResource mainWindowViewModel}">
         <DockPanel>
             <Menu DockPanel.Dock="Top" >
                 <MenuItem Header="_Game">
@@ -24,7 +31,23 @@
                 <ItemsControl x:Name="TileRows" ItemsSource="{Binding Tiles}" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Count}" />
+                            <ItemsControl ItemsSource="{Binding}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Rows="1" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Style="{StaticResource SquareButton}" Content="{Binding State}">
+                                            <Button.InputBindings>
+                                                <MouseBinding Gesture="LeftClick" Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileClickedCommand}" CommandParameter="{Binding}" />
+                                                <MouseBinding Gesture="RightClick" Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileRightClickedCommand}" CommandParameter="{Binding}" />
+                                            </Button.InputBindings>
+                                        </Button>                                        
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>                            
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

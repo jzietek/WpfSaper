@@ -23,16 +23,6 @@ namespace WpfSaper
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void NewGameCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void NewGameCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            MessageBox.Show("The New command was invoked");
-        }
+        }        
     }
 }
