@@ -7,13 +7,10 @@
         xmlns:localVM="clr-namespace:WpfSaper.ViewModel"
         mc:Ignorable="d"
         Title="WPF Saper" Height="600" Width="560">
-    <!--<Window.DataContext>
-        <localVM:MainWindowViewModel x:Name="mainWindowViewModel" />
-    </Window.DataContext>-->
     <Window.Resources>
         <Style TargetType="Button" x:Key="SquareButton">
             <Setter Property="MinWidth" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
-            <Setter Property="MinHeight" Value="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" />
+            <Setter Property="MinHeight" Value="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" />            
         </Style>
         <localVM:MainWindowViewModel x:Key="mainWindowViewModel" />
     </Window.Resources>
@@ -39,7 +36,7 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="tileButton" Style="{StaticResource SquareButton}" Content="{Binding State}">
+                                        <Button x:Name="tileButton" Style="{StaticResource SquareButton}" Content="" >
                                             <Button.InputBindings>
                                                 <MouseBinding Gesture="LeftClick" Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileClickedCommand}" CommandParameter="{Binding}" />
                                                 <MouseBinding Gesture="RightClick" Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileRightClickedCommand}" CommandParameter="{Binding}" />
@@ -47,10 +44,12 @@
                                         </Button>
                                         <DataTemplate.Triggers>
                                             <DataTrigger Binding="{Binding Path=State, Mode=OneWay}" Value="Uncovered">
-                                                <Setter TargetName="tileButton" Property="Background" Value="Green" />
+                                                <Setter TargetName="tileButton" Property="Background" Value="Beige" />
+                                                <Setter TargetName="tileButton" Property="Content" Value="{Binding Path=BombsAround}" />
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Path=State, Mode=OneWay}" Value="Flagged">
                                                 <Setter TargetName="tileButton" Property="Background" Value="Orange" />
+                                                <Setter TargetName="tileButton" Property="Content" Value="Flag" />
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Path=State, Mode=OneWay}" Value="Exploded">
                                                 <Setter TargetName="tileButton" Property="Background" Value="Black" />

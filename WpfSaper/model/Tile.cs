@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WpfSaper.Model
 {
@@ -18,6 +16,8 @@ namespace WpfSaper.Model
         private readonly List<Tile> neighbours = new List<Tile>();
 
         private TileState state = TileState.Covered;
+
+        private int bombsAround = -1;
 
         public event EventHandler<StateChangedEventArgs> StateChanged;
 
@@ -34,8 +34,8 @@ namespace WpfSaper.Model
                 if (state != value)
                 {
                     state = value;
-                    OnStateChanged();
                     OnPropertyChanged("State");
+                    OnStateChanged();                    
                 }
             }
         }
@@ -46,7 +46,17 @@ namespace WpfSaper.Model
 
         public IEnumerable<Tile> Neighbours { get { return this.neighbours; }}
                 
-        public int BombsAround { get { return this.neighbours.Count(x => x.HasBomb); }}
+        public int BombsAround
+        {
+            get
+            {
+                if (bombsAround == -1)
+                {
+                    bombsAround = this.neighbours.Count(x => x.HasBomb);
+                }
+                return bombsAround;
+            }
+        }
         
 
         public void SetNeighbours(IEnumerable<Tile> neighbours)
@@ -60,12 +70,10 @@ namespace WpfSaper.Model
             if (State == TileState.Covered)
             {
                 State = TileState.Flagged;
-                return;
             }
-            if (State == TileState.Flagged)
+            else if (State == TileState.Flagged)
             {
                 State = TileState.Covered;
-                return;
             }
         }
 

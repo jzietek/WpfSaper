@@ -31,7 +31,19 @@ namespace WpfSaper.ViewModel
         public MainWindowViewModel()
         {
             this.minefieldFactory = new MinefieldFactory(new RandomBooleansGenerator());
-            this.minefield = this.minefieldFactory.CreateNew(12, 12, 10); //TODO not to be harcoded
+            this.Minefield = this.minefieldFactory.CreateNew(12, 12, 10); //TODO not to be harcoded            
+        }
+
+        private void Minefield_GameEnded(object sender, Minefield.GameEndedEventArgs e)
+        {
+            if (e.IsWon)
+            {
+                MessageBox.Show("Minefield cleared. You won!", ":)");
+            }
+            else
+            {
+                MessageBox.Show("Game Over!", ":(" );
+            }
         }
 
         public Minefield Minefield
@@ -44,7 +56,14 @@ namespace WpfSaper.ViewModel
             {
                 if (minefield != value)
                 {
+                    if (minefield != null)
+                    {
+                        minefield.GameEnded -= Minefield_GameEnded;
+                    }
+
                     minefield = value;
+                    minefield.GameEnded += Minefield_GameEnded;
+
                     OnPropertyChanged("Minefield");
                 }
             }
@@ -116,18 +135,24 @@ namespace WpfSaper.ViewModel
         }
 
         private void HandleTileRightClicked(object arg)
-        {            
-            (arg as Tile)?.ToggleFlag();
+        {
+            if (!this.minefield.IsGameEnded)
+            {
+                (arg as Tile)?.ToggleFlag();
+            }
         }
 
         private void HandleTileClicked(object arg)
         {
-            (arg as Tile)?.UncoverTile();
+            if (!this.minefield.IsGameEnded)
+            {
+                (arg as Tile)?.UncoverTile();
+            }
         }
 
         private void StartNewGame()
         {
-            this.Minefield = this.minefieldFactory.CreateNew(6, 6, 6);
+            this.Minefield = this.minefieldFactory.CreateNew(3, 3, 1);
         }
 
         private void ShowAboutBoxWindow()
