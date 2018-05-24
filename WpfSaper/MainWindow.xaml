@@ -38,7 +38,7 @@
                                     <DataTemplate>
                                         <Button x:Name="tileButton" Style="{StaticResource SquareButton}" Content="" >
                                             <Button.InputBindings>
-                                                <MouseBinding Gesture="LeftClick" Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileClickedCommand}" CommandParameter="{Binding}" />
+                                                <MouseBinding Gesture="LeftClick" Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileClickedCommand}" CommandParameter="{Binding}" />                                                
                                                 <MouseBinding Gesture="RightClick" Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileRightClickedCommand}" CommandParameter="{Binding}" />
                                             </Button.InputBindings>                                            
                                         </Button>

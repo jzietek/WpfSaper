@@ -22,7 +22,7 @@ namespace WpfSaper.ViewModel
         private ICommand showAboutBoxCommand;
         private ICommand exitApplicationCommand;
         private ICommand tileClickedCommand;
-        private ICommand tileRightClickedCommand;        
+        private ICommand tileRightClickedCommand;
 
         private Minefield minefield;
 
@@ -127,6 +127,19 @@ namespace WpfSaper.ViewModel
                 }
                 return tileRightClickedCommand;
             }
+        }       
+        
+
+        private void HandleTileLeftAndRightClicked(object arg)
+        {
+            Tile tile = arg as Tile;
+            if (tile != null)
+            {
+                foreach(var n in tile.Neighbours)
+                {
+                    n.UncoverTile();
+                }
+            }            
         }
 
         private void OnPropertyChanged(string propName)
@@ -136,14 +149,29 @@ namespace WpfSaper.ViewModel
 
         private void HandleTileRightClicked(object arg)
         {
+            if (AreBothNouseKeysPressed())
+            {
+                HandleTileLeftAndRightClicked(arg);
+            }
+
             if (!this.minefield.IsGameEnded)
             {
                 (arg as Tile)?.ToggleFlag();
             }
         }
 
+        private bool AreBothNouseKeysPressed()
+        {
+            return (Mouse.LeftButton == MouseButtonState.Pressed && Mouse.RightButton == MouseButtonState.Pressed);
+        }
+
         private void HandleTileClicked(object arg)
         {
+            if (AreBothNouseKeysPressed())
+            {
+                HandleTileLeftAndRightClicked(arg);
+            }
+
             if (!this.minefield.IsGameEnded)
             {
                 (arg as Tile)?.UncoverTile();
