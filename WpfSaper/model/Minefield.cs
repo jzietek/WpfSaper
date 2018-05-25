@@ -82,7 +82,7 @@ namespace WpfSaper.Model
                 if (tile.BombsAround == 0)
                 {
                     foreach(var n in tile.Neighbours)
-                    {
+                    {                        
                         n.UncoverTile();
                     }
                 }

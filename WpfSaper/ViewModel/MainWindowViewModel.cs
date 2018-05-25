@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,15 @@ namespace WpfSaper.ViewModel
         public MainWindowViewModel()
         {
             this.minefieldFactory = new MinefieldFactory(new RandomBooleansGenerator());
-            this.Minefield = this.minefieldFactory.CreateNew(12, 12, 10); //TODO not to be harcoded            
+            this.Minefield = this.minefieldFactory.CreateNew(
+                readAppSettingInt("horizontalTilesCount"), 
+                readAppSettingInt("verticalTilesCount"), 
+                readAppSettingInt("bombsCount"));
+        }
+
+        private int readAppSettingInt(string key)
+        {
+            return Convert.ToInt32(ConfigurationManager.AppSettings[key]);
         }
 
         private void Minefield_GameEnded(object sender, Minefield.GameEndedEventArgs e)
@@ -135,7 +144,7 @@ namespace WpfSaper.ViewModel
             Tile tile = arg as Tile;
             if (tile != null)
             {
-                foreach(var n in tile.Neighbours)
+                foreach(var n in tile.Neighbours.Where(n => n.State == Tile.TileState.Covered))
                 {
                     n.UncoverTile();
                 }
@@ -180,7 +189,10 @@ namespace WpfSaper.ViewModel
 
         private void StartNewGame()
         {
-            this.Minefield = this.minefieldFactory.CreateNew(3, 3, 1);
+            this.Minefield = this.minefieldFactory.CreateNew(
+                readAppSettingInt("horizontalTilesCount"),
+                readAppSettingInt("verticalTilesCount"),
+                readAppSettingInt("bombsCount"));
         }
 
         private void ShowAboutBoxWindow()
