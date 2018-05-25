@@ -1,0 +1,44 @@
+﻿<Window x:Class="WpfSaper.DifficultySelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfSaper"
+        mc:Ignorable="d"
+        Title="Choose new game difficulty" Height="200" Width="200" WindowStyle="ToolWindow">
+    <Grid>
+        <StackPanel Orientation="Vertical" >
+            <StackPanel.Resources>
+                <Style TargetType="RadioButton">
+                    <Setter Property="Margin" Value="8, 8, 8, 8" />
+                    <Setter Property="HorizontalAlignment" Value="Left" />
+                    <Setter Property="VerticalAlignment" Value="Top" />
+                </Style>
+            </StackPanel.Resources>
+            <RadioButton Name="optionEasy" GroupName="difficulty" Content="Easy" IsChecked="False" />
+            <RadioButton Name="optionMedium" GroupName="difficulty" Content="Medium" IsChecked="True"/>
+            <RadioButton Name="optionHard" GroupName="difficulty" Content="Hard" IsChecked="False" />
+            <RadioButton Name="optionCustom" GroupName="difficulty" Content="Custom" IsChecked="False" />
+            <Expander>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0">Horizontal Tiles:</Label>
+                    <TextBox Name="horizontalTilesTextBox" Grid.Column="1" Grid.Row="0" />
+                    <Label Grid.Column="0" Grid.Row="1">Vertical Tiles:</Label>
+                    <TextBox Name="verticalTilesTextBox" Grid.Column="1" Grid.Row="1" />
+                    <Label Grid.Column="0" Grid.Row="2">Bombs:</Label>
+                    <TextBox Name="bombsTextBox" Grid.Column="1" Grid.Row="2" />
+                </Grid>
+            </Expander>
+            <Button x:Name="btnOk" Margin="10" Click="btnOk_Click">Start new game</Button>
+        </StackPanel>
+    </Grid>
+</Window>

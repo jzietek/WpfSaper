@@ -31,7 +31,7 @@ namespace WpfSaper.ViewModel
         public MainWindowViewModel()
         {
             this.minefieldFactory = new MinefieldFactory(new RandomBooleansGenerator());
-            this.Minefield = this.minefieldFactory.CreateNew(12, 12, 10); //TODO not to be harcoded            
+            this.Minefield = this.minefieldFactory.CreateNew(12, 12, 10);
         }
 
         private void Minefield_GameEnded(object sender, Minefield.GameEndedEventArgs e)
@@ -137,7 +137,10 @@ namespace WpfSaper.ViewModel
             {
                 foreach(var n in tile.Neighbours)
                 {
-                    n.UncoverTile();
+                    if (n.State == Tile.TileState.Uncovered)
+                    {
+                        n.UncoverTile();
+                    }
                 }
             }            
         }
@@ -180,7 +183,11 @@ namespace WpfSaper.ViewModel
 
         private void StartNewGame()
         {
-            this.Minefield = this.minefieldFactory.CreateNew(3, 3, 1);
+            DifficultySelectionWindow gameConfigWindow = new DifficultySelectionWindow();
+            if(gameConfigWindow.ShowDialog().GetValueOrDefault())
+            {
+                this.Minefield = this.minefieldFactory.CreateNew(gameConfigWindow.GameConfig);
+            }
         }
 
         private void ShowAboutBoxWindow()

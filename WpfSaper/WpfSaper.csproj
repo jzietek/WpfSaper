@@ -60,8 +60,16 @@
     <Compile Include="AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DifficultySelectionWindow.xaml.cs">
+      <DependentUpon>DifficultySelectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GameConfig.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Page Include="AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DifficultySelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
