@@ -43,7 +43,7 @@ namespace WpfSaper.Model
             {
                 if (bombsInMinefield == -1)
                 {
-                    bombsInMinefield = this.tiles.SelectMany(x => x.Select(y => y.HasBomb)).Count(z => z == true);
+                    bombsInMinefield = tiles.SelectMany(x => x.Select(y => y.HasBomb)).Count(z => z == true);
                 }
                 return bombsInMinefield;
             }
@@ -91,7 +91,7 @@ namespace WpfSaper.Model
 
         private void OnGameEnd(bool isWon)
         {
-            this.IsGameEnded = true;
+            IsGameEnded = true;
             GameEnded?.Invoke(this, new GameEndedEventArgs(isWon));            
         }
 

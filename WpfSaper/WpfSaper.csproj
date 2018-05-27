@@ -57,23 +57,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AboutWindow.xaml.cs">
+    <Compile Include="ViewModel\GameConfigViewModel.cs" />
+    <Compile Include="View\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DifficultySelectionWindow.xaml.cs">
-      <DependentUpon>DifficultySelectionWindow.xaml</DependentUpon>
+    <Compile Include="View\GameConfigWindow.xaml.cs">
+      <DependentUpon>GameConfigWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameConfig.cs" />
+    <Compile Include="Model\GameConfig.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
-    <Page Include="AboutWindow.xaml">
+    <Page Include="View\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DifficultySelectionWindow.xaml">
+    <Page Include="View\GameConfigWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -82,7 +83,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -126,6 +127,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool" sign "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>:; "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool" sign "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

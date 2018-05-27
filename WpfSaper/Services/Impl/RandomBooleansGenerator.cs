@@ -11,12 +11,12 @@ namespace WpfSaper.Services.Impl
 
         public RandomBooleansGenerator()
         {
-             this.rand = new Random(DateTime.Now.Millisecond);
+            rand = new Random(DateTime.Now.Millisecond);
         }
 
         public RandomBooleansGenerator(int seed)
         {
-            this.rand = new Random(seed);
+            rand = new Random(seed);
         }
 
         public bool[] GenerateBooleans(int allCount, int positivesCount)

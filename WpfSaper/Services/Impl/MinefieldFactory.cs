@@ -18,12 +18,12 @@ namespace WpfSaper.Services.Impl
 
         public Minefield CreateNew(GameConfig config)
         {
-            return this.CreateNew(config.HorizontalTilesCount, config.VerticalTilesCount, config.BombsCount);
+            return CreateNew(config.HorizontalTilesCount, config.VerticalTilesCount, config.BombsCount);
         }
 
         public Minefield CreateNew(int horizontalTilesCount, int verticalTilesCount, int bombsCount)
         {
-            bool[] bombIndices = this.booleansGenerator.GenerateBooleans(horizontalTilesCount * verticalTilesCount, bombsCount);
+            bool[] bombIndices = booleansGenerator.GenerateBooleans(horizontalTilesCount * verticalTilesCount, bombsCount);
             var minefield = AllocateTiles(horizontalTilesCount, verticalTilesCount, bombIndices);
             AssignNeighbours(minefield);
             return minefield;

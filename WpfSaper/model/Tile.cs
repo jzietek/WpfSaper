@@ -44,7 +44,7 @@ namespace WpfSaper.Model
 
         public bool HasBomb { get; private set; }
 
-        public IEnumerable<Tile> Neighbours { get { return this.neighbours; }}
+        public IEnumerable<Tile> Neighbours { get { return neighbours; }}
                 
         public int BombsAround
         {
@@ -52,7 +52,7 @@ namespace WpfSaper.Model
             {
                 if (bombsAround == -1)
                 {
-                    bombsAround = this.neighbours.Count(x => x.HasBomb);
+                    bombsAround = neighbours.Count(x => x.HasBomb);
                 }
                 return bombsAround;
             }
@@ -96,7 +96,7 @@ namespace WpfSaper.Model
 
         private void OnStateChanged()
         {
-            StateChanged?.Invoke(this, new StateChangedEventArgs(this.State));
+            StateChanged?.Invoke(this, new StateChangedEventArgs(State));
         }
 
         private void OnPropertyChanged(string propName)
@@ -118,7 +118,7 @@ namespace WpfSaper.Model
 
             public StateChangedEventArgs(TileState currentState)
             {
-                this.CurrentState = currentState;
+                CurrentState = currentState;
             }
         }
     }

@@ -1,10 +1,5 @@
-﻿using Gat.Controls;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using WpfSaper.Commands;
@@ -23,6 +18,8 @@ namespace WpfSaper.ViewModel
         private ICommand exitApplicationCommand;
         private ICommand tileClickedCommand;
         private ICommand tileRightClickedCommand;
+                
+        private readonly GameConfigViewModel gameConfigViewModel = new GameConfigViewModel();
 
         private Minefield minefield;
 
@@ -30,19 +27,29 @@ namespace WpfSaper.ViewModel
 
         public MainWindowViewModel()
         {
-            this.minefieldFactory = new MinefieldFactory(new RandomBooleansGenerator());
-            this.Minefield = this.minefieldFactory.CreateNew(12, 12, 10);
+            minefieldFactory = new MinefieldFactory(new RandomBooleansGenerator());
+            Minefield = minefieldFactory.CreateNew(12, 12, 10);
         }
 
         private void Minefield_GameEnded(object sender, Minefield.GameEndedEventArgs e)
         {
+            MessageBoxResult result = MessageBoxResult.None;
             if (e.IsWon)
             {
-                MessageBox.Show("Minefield cleared. You won!", ":)");
+                result = MessageBox.Show("Minefield cleared. You won! One more time?", "You have won :)", MessageBoxButton.YesNo);
             }
             else
             {
-                MessageBox.Show("Game Over!", ":(" );
+                result = MessageBox.Show("Game Over! One more time?", "You have lost :(", MessageBoxButton.YesNo );
+            }
+
+            if (result == MessageBoxResult.No)
+            {
+                ExitApplicationCommand.Execute(null);
+            }
+            else if (result == MessageBoxResult.Yes)
+            {
+                NewGameCommand.Execute(null);
             }
         }
 
@@ -64,7 +71,7 @@ namespace WpfSaper.ViewModel
                     minefield = value;
                     minefield.GameEnded += Minefield_GameEnded;
 
-                    OnPropertyChanged("Minefield");
+                    OnPropertyChanged();
                 }
             }
         }        
@@ -132,12 +139,14 @@ namespace WpfSaper.ViewModel
 
         private void HandleTileLeftAndRightClicked(object arg)
         {
+            System.Diagnostics.Debug.WriteLine("Left and Right Click");
+
             Tile tile = arg as Tile;
             if (tile != null)
             {
                 foreach(var n in tile.Neighbours)
                 {
-                    if (n.State == Tile.TileState.Uncovered)
+                    if (n.State == Tile.TileState.Covered)
                     {
                         n.UncoverTile();
                     }
@@ -145,7 +154,7 @@ namespace WpfSaper.ViewModel
             }            
         }
 
-        private void OnPropertyChanged(string propName)
+        private void OnPropertyChanged([CallerMemberName] string propName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
@@ -157,7 +166,7 @@ namespace WpfSaper.ViewModel
                 HandleTileLeftAndRightClicked(arg);
             }
 
-            if (!this.minefield.IsGameEnded)
+            if (!minefield.IsGameEnded)
             {
                 (arg as Tile)?.ToggleFlag();
             }
@@ -175,7 +184,7 @@ namespace WpfSaper.ViewModel
                 HandleTileLeftAndRightClicked(arg);
             }
 
-            if (!this.minefield.IsGameEnded)
+            if (!minefield.IsGameEnded)
             {
                 (arg as Tile)?.UncoverTile();
             }
@@ -183,10 +192,10 @@ namespace WpfSaper.ViewModel
 
         private void StartNewGame()
         {
-            DifficultySelectionWindow gameConfigWindow = new DifficultySelectionWindow();
+            var gameConfigWindow = new DifficultySelectionWindow(gameConfigViewModel);
             if(gameConfigWindow.ShowDialog().GetValueOrDefault())
             {
-                this.Minefield = this.minefieldFactory.CreateNew(gameConfigWindow.GameConfig);
+                Minefield = minefieldFactory.CreateNew(gameConfigViewModel.GameConfig);
             }
         }
 
