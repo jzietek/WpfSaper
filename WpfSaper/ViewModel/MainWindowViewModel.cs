@@ -18,8 +18,6 @@ namespace WpfSaper.ViewModel
         private ICommand exitApplicationCommand;
         private ICommand tileClickedCommand;
         private ICommand tileRightClickedCommand;
-                
-        private readonly GameConfigViewModel gameConfigViewModel = new GameConfigViewModel();
 
         private Minefield minefield;
 
@@ -28,7 +26,9 @@ namespace WpfSaper.ViewModel
         public MainWindowViewModel()
         {
             minefieldFactory = new MinefieldFactory(new RandomBooleansGenerator());
-            Minefield = minefieldFactory.CreateNew(12, 12, 10);
+            gameConfigViewModel = new GameConfigViewModel();
+
+            Minefield = minefieldFactory.CreateNew(gameConfigViewModel.GameConfig);
         }
 
         private void Minefield_GameEnded(object sender, Minefield.GameEndedEventArgs e)
@@ -94,7 +94,7 @@ namespace WpfSaper.ViewModel
             {
                 if (newGameCommand == null)
                 {
-                    newGameCommand = new RelayCommand((arg) => { StartNewGame(); });
+                    newGameCommand = new RelayCommand((arg) => { ConfigureAndStartNewGame(); });
                 }
                 return newGameCommand;
             }
@@ -139,8 +139,6 @@ namespace WpfSaper.ViewModel
 
         private void HandleTileLeftAndRightClicked(object arg)
         {
-            System.Diagnostics.Debug.WriteLine("Left and Right Click");
-
             Tile tile = arg as Tile;
             if (tile != null)
             {
@@ -190,12 +188,12 @@ namespace WpfSaper.ViewModel
             }
         }
 
-        private void StartNewGame()
+        private void ConfigureAndStartNewGame()
         {
-            var gameConfigWindow = new DifficultySelectionWindow(gameConfigViewModel);
+            var gameConfigWindow = new DifficultySelectionWindow();
             if(gameConfigWindow.ShowDialog().GetValueOrDefault())
             {
-                Minefield = minefieldFactory.CreateNew(gameConfigViewModel.GameConfig);
+                Minefield = minefieldFactory.CreateNew(gameConfigWindow.ViewModel.GameConfig);
             }
         }
 
