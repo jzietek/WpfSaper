@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="WpfSaper.View.TileControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfSaper.View"
+             xmlns:s="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <s:Double x:Key="backgroundEdgeRadius">20</s:Double>
+        
+        <DrawingBrush x:Key="bombBrush">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="Red">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="0,0,300,300" RadiusX="{StaticResource backgroundEdgeRadius}" RadiusY="{StaticResource backgroundEdgeRadius}" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="Black">
+                        <GeometryDrawing.Geometry>
+                            <GeometryGroup>
+                                <LineGeometry StartPoint="40,150" EndPoint="260,150" />
+                                <LineGeometry StartPoint="40,150" EndPoint="260,150" >
+                                    <LineGeometry.Transform><RotateTransform Angle="30" CenterX="150" CenterY="150" /></LineGeometry.Transform>
+                                </LineGeometry>
+                                <LineGeometry StartPoint="40,150" EndPoint="260,150" >
+                                    <LineGeometry.Transform>
+                                        <RotateTransform Angle="60" CenterX="150" CenterY="150" />
+                                    </LineGeometry.Transform>
+                                </LineGeometry>
+                                <LineGeometry StartPoint="40,150" EndPoint="260,150" >
+                                    <LineGeometry.Transform>
+                                        <RotateTransform Angle="90" CenterX="150" CenterY="150" />
+                                    </LineGeometry.Transform>
+                                </LineGeometry>
+                                <LineGeometry StartPoint="40,150" EndPoint="260,150" >
+                                    <LineGeometry.Transform>
+                                        <RotateTransform Angle="120" CenterX="150" CenterY="150" />
+                                    </LineGeometry.Transform>
+                                </LineGeometry>
+                                <LineGeometry StartPoint="40,150" EndPoint="260,150" >
+                                    <LineGeometry.Transform>
+                                        <RotateTransform Angle="150" CenterX="150" CenterY="150" />
+                                    </LineGeometry.Transform>
+                                </LineGeometry>
+                                <EllipseGeometry Center="150,150" RadiusX="90" RadiusY="90" />
+                            </GeometryGroup>
+                        </GeometryDrawing.Geometry>
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="10" StartLineCap="Round" EndLineCap="Round">
+                                <Pen.Brush>
+                                    <SolidColorBrush Color="Black" />
+                                </Pen.Brush>
+                            </Pen>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup>               
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+        
+        <DrawingBrush x:Key="flagBrush">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="White">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="0,0,300,300" RadiusX="{StaticResource backgroundEdgeRadius}" RadiusY="{StaticResource backgroundEdgeRadius}" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+
+                    <GeometryDrawing>
+                        <GeometryDrawing.Geometry>
+                            <PathGeometry>
+                                <PathFigure IsClosed="True" StartPoint="150,50">
+                                    <LineSegment Point="200, 150" />
+                                    <LineSegment Point="150, 150" />
+                                </PathFigure>
+                            </PathGeometry>
+                        </GeometryDrawing.Geometry>
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="2" StartLineCap="Round" EndLineCap="Round">
+                                <Pen.Brush>
+                                    <SolidColorBrush Color="Red" />
+                                </Pen.Brush>
+                            </Pen>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Brush>
+                            <SolidColorBrush Color="Red" />
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+
+                    <GeometryDrawing>
+                        <GeometryDrawing.Geometry>
+                            <GeometryGroup>
+                                <LineGeometry StartPoint="150,50" EndPoint="150,250" />
+                                <LineGeometry StartPoint="100,250" EndPoint="200,250" />
+                            </GeometryGroup>
+                        </GeometryDrawing.Geometry>
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="10" StartLineCap="Round" EndLineCap="Round" >
+                                <Pen.Brush>
+                                    <SolidColorBrush Color="Black" />
+                                </Pen.Brush>
+                            </Pen>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>                 
+                    
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+
+        <DrawingBrush x:Key="coveredBrush">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="White">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="0,0,300,300" RadiusX="{StaticResource backgroundEdgeRadius}" RadiusY="{StaticResource backgroundEdgeRadius}" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+
+        <DrawingBrush x:Key="uncoveredBrush">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="Gray">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="0,0,300,300" RadiusX="{StaticResource backgroundEdgeRadius}" RadiusY="{StaticResource backgroundEdgeRadius}" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+    </UserControl.Resources>
+
+    <Grid>
+        <Button Background="{StaticResource uncoveredBrush}"></Button>
+    </Grid>
+</UserControl>

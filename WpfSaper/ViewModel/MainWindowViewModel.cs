@@ -22,6 +22,7 @@ namespace WpfSaper.ViewModel
         private Minefield minefield;
 
         private readonly IMinefieldFactory minefieldFactory;
+        private readonly GameConfigViewModel gameConfigViewModel;
 
         public MainWindowViewModel()
         {
@@ -191,6 +192,8 @@ namespace WpfSaper.ViewModel
         private void ConfigureAndStartNewGame()
         {
             var gameConfigWindow = new DifficultySelectionWindow();
+            gameConfigWindow.ViewModel = this.gameConfigViewModel;
+
             if(gameConfigWindow.ShowDialog().GetValueOrDefault())
             {
                 Minefield = minefieldFactory.CreateNew(gameConfigWindow.ViewModel.GameConfig);
