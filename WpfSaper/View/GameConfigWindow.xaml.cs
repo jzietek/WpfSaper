@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfSaper.Model;
 using WpfSaper.Services;
 using WpfSaper.ViewModel;
 
@@ -21,8 +22,6 @@ namespace WpfSaper
     /// </summary>
     public partial class DifficultySelectionWindow : Window
     {
-        public GameConfigViewModel ViewModel { get; set; }
-
         public DifficultySelectionWindow()
         {
             InitializeComponent();            
@@ -32,6 +31,14 @@ namespace WpfSaper
         {
             DialogResult = true;
             Close();
+        }
+
+        public GameConfig GameConfig
+        {
+            get
+            {
+                return (this.DataContext as GameConfigViewModel)?.GameConfig;
+            }
         }
     }
 }

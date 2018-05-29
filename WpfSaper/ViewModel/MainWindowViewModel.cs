@@ -22,14 +22,13 @@ namespace WpfSaper.ViewModel
         private Minefield minefield;
 
         private readonly IMinefieldFactory minefieldFactory;
-        private readonly GameConfigViewModel gameConfigViewModel;
 
         public MainWindowViewModel()
         {
             minefieldFactory = new MinefieldFactory(new RandomBooleansGenerator());
-            gameConfigViewModel = new GameConfigViewModel();
-
-            Minefield = minefieldFactory.CreateNew(gameConfigViewModel.GameConfig);
+            var gameConfig = new GameConfig();
+            gameConfig.SetMedium();
+            Minefield = minefieldFactory.CreateNew(gameConfig);
         }
 
         private void Minefield_GameEnded(object sender, Minefield.GameEndedEventArgs e)
@@ -192,11 +191,9 @@ namespace WpfSaper.ViewModel
         private void ConfigureAndStartNewGame()
         {
             var gameConfigWindow = new DifficultySelectionWindow();
-            gameConfigWindow.ViewModel = this.gameConfigViewModel;
-
             if(gameConfigWindow.ShowDialog().GetValueOrDefault())
             {
-                Minefield = minefieldFactory.CreateNew(gameConfigWindow.ViewModel.GameConfig);
+                Minefield = minefieldFactory.CreateNew(gameConfigWindow.GameConfig);
             }
         }
 
