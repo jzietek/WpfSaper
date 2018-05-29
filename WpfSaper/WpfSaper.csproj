@@ -158,6 +158,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool" sign "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>if $(ComputerName) == GPLPL0030 (
+"C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool" sign "$(TargetPath)"
+)</PostBuildEvent>
   </PropertyGroup>
 </Project>
