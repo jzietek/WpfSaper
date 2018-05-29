@@ -6,6 +6,7 @@ using WpfSaper.Commands;
 using WpfSaper.Model;
 using WpfSaper.Services;
 using WpfSaper.Services.Impl;
+using WpfSaper.View;
 
 namespace WpfSaper.ViewModel
 {
@@ -190,7 +191,7 @@ namespace WpfSaper.ViewModel
 
         private void ConfigureAndStartNewGame()
         {
-            var gameConfigWindow = new DifficultySelectionWindow();
+            var gameConfigWindow = new GameConfigWindow();
             if(gameConfigWindow.ShowDialog().GetValueOrDefault())
             {
                 Minefield = minefieldFactory.CreateNew(gameConfigWindow.GameConfig);

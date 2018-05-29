@@ -15,14 +15,14 @@ using WpfSaper.Model;
 using WpfSaper.Services;
 using WpfSaper.ViewModel;
 
-namespace WpfSaper
+namespace WpfSaper.View
 {
     /// <summary>
-    /// Interaction logic for DifficultySelectionWindow.xaml
+    /// Interaction logic for GameConfigWindow.xaml
     /// </summary>
-    public partial class DifficultySelectionWindow : Window
+    public partial class GameConfigWindow : Window
     {
-        public DifficultySelectionWindow()
+        public GameConfigWindow()
         {
             InitializeComponent();            
         }
