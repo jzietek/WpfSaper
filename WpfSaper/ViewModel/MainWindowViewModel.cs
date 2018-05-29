@@ -19,6 +19,7 @@ namespace WpfSaper.ViewModel
         private ICommand exitApplicationCommand;
         private ICommand tileClickedCommand;
         private ICommand tileRightClickedCommand;
+        private ICommand tileLeftAndRightClickedCommand;
 
         private Minefield minefield;
 
@@ -135,8 +136,20 @@ namespace WpfSaper.ViewModel
                 }
                 return tileRightClickedCommand;
             }
-        }       
-        
+        }
+
+        public ICommand TileLeftAndRightClickedCommand
+        {
+            get
+            {
+                if (tileLeftAndRightClickedCommand == null)
+                {
+                    tileLeftAndRightClickedCommand = new RelayCommand((arg) => { HandleTileLeftAndRightClicked(arg); });
+                }
+                return tileLeftAndRightClickedCommand;
+            }
+        }
+
 
         private void HandleTileLeftAndRightClicked(object arg)
         {

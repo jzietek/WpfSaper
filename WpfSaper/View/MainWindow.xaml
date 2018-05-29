@@ -44,6 +44,9 @@
                                                 <i:EventTrigger EventName="RightClick">
                                                     <i:InvokeCommandAction Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileRightClickedCommand}" CommandParameter="{Binding}"/>
                                                 </i:EventTrigger>
+                                                <i:EventTrigger EventName="LeftAndRightClick">
+                                                    <i:InvokeCommandAction Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileRightClickedCommand}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </localControls:TileControl>
                                         <DataTemplate.Triggers>

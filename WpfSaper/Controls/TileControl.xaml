@@ -188,9 +188,11 @@
     <Grid>
         <Button Name="tileButton" 
                 Style="{StaticResource TileButton}"                 
-                Content="{Binding ElementName=MyTileControl, Path=Text}" 
-                MouseRightButtonUp="tileButton_MouseRightButtonDown"
-                Click="tileButton_Click">
-        </Button>
+                Content="{Binding ElementName=MyTileControl, Path=Text}" >
+            <Button.InputBindings>
+                <MouseBinding Gesture="RightClick" Command="{Binding ElementName=MyTileControl, Path=HandleTileClickCommand}" />
+                <MouseBinding Gesture="LeftClick" Command="{Binding ElementName=MyTileControl, Path=HandleTileClickCommand}" />
+            </Button.InputBindings>
+        </Button>        
     </Grid>
 </UserControl>

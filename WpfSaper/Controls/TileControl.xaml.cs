@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WpfSaper.Commands;
 
 namespace WpfSaper.Controls
 {
@@ -47,14 +48,42 @@ namespace WpfSaper.Controls
             remove { RemoveHandler(RightClickEvent, value); }
         }
 
-        private void tileButton_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        public static readonly RoutedEvent LeftAndRightClickEvent = EventManager.RegisterRoutedEvent("LeftAndRightClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TileControl));
+
+        public event RoutedEventHandler LeftAndRightClick
         {
-            RaiseEvent(new RoutedEventArgs(RightClickEvent));
+            add { AddHandler(LeftAndRightClickEvent, value); }
+            remove { RemoveHandler(LeftAndRightClickEvent, value); }
         }
 
-        private void tileButton_Click(object sender, RoutedEventArgs e)
+        private ICommand handleTileClickCommand;
+
+        public ICommand HandleTileClickCommand
         {
-            RaiseEvent(new RoutedEventArgs(ClickEvent));
+            get
+            {
+                if (handleTileClickCommand == null)
+                {
+                    handleTileClickCommand = new RelayCommand((arg) => { HandleTileClicked(arg); });
+                }
+                return handleTileClickCommand;
+            }
+        }
+
+        private void HandleTileClicked(object arg)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed && Mouse.RightButton == MouseButtonState.Pressed)
+            {
+                RaiseEvent(new RoutedEventArgs(LeftAndRightClickEvent));
+            }
+            else if (Mouse.LeftButton == MouseButtonState.Pressed)
+            {
+                RaiseEvent(new RoutedEventArgs(ClickEvent));
+            }
+            else if (Mouse.RightButton == MouseButtonState.Pressed)
+            {
+                RaiseEvent(new RoutedEventArgs(RightClickEvent));
+            }
         }        
     }
 }
