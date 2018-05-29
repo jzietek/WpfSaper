@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfSaper"
+        xmlns:localConverters="clr-namespace:WpfSaper.Converters"
         xmlns:localVM="clr-namespace:WpfSaper.ViewModel"
         xmlns:localControls="clr-namespace:WpfSaper.Controls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -11,6 +12,7 @@
         Title="WPF Saper" Height="600" Width="560">
     <Window.Resources>
         <localVM:MainWindowViewModel x:Key="mainWindowViewModel" />
+        <localConverters:BombsAroundConverter x:Key="bombsAroundConverter" />
     </Window.Resources>
     <Grid DataContext="{StaticResource mainWindowViewModel}">
         <DockPanel>
@@ -51,7 +53,7 @@
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Path=State, Mode=OneWay}" Value="Uncovered">
                                                 <Setter TargetName="tile" Property="TileState" Value="Uncovered" />
-                                                <Setter TargetName="tile" Property="Text" Value="{Binding Path=BombsAround}" />
+                                                <Setter TargetName="tile" Property="Text" Value="{Binding Path=BombsAround, Converter={StaticResource bombsAroundConverter}}" />
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Path=State, Mode=OneWay}" Value="Flagged">
                                                 <Setter TargetName="tile" Property="TileState" Value="Flagged" />

@@ -73,12 +73,12 @@ namespace WpfSaper.Model
 
         public void SetMedium()
         {
-            SetCustom(10, 10, 30);
+            SetCustom(10, 10, 22);
         }
 
         public void SetHard()
         {
-            SetCustom(16, 16, 80);
+            SetCustom(16, 16, 60);
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
