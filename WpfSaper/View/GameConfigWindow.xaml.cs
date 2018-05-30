@@ -23,7 +23,7 @@ namespace WpfSaper.View
     public partial class GameConfigWindow : Window
     {
         public GameConfigWindow()
-        {
+        {            
             InitializeComponent();            
         }
 

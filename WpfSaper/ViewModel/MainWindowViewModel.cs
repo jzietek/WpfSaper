@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -15,6 +16,7 @@ namespace WpfSaper.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         private ICommand newGameCommand;
+        private ICommand restartGameCommand;
         private ICommand showAboutBoxCommand;
         private ICommand exitApplicationCommand;
         private ICommand tileClickedCommand;
@@ -22,13 +24,13 @@ namespace WpfSaper.ViewModel
         private ICommand tileLeftAndRightClickedCommand;
 
         private Minefield minefield;
-
+        private GameConfig gameConfig;
         private readonly IMinefieldFactory minefieldFactory;
 
         public MainWindowViewModel()
         {
             minefieldFactory = new MinefieldFactory(new RandomBooleansGenerator());
-            var gameConfig = new GameConfig();
+            gameConfig = new GameConfig();
             gameConfig.SetMedium();
             Minefield = minefieldFactory.CreateNew(gameConfig);
         }
@@ -51,7 +53,7 @@ namespace WpfSaper.ViewModel
             }
             else if (result == MessageBoxResult.Yes)
             {
-                NewGameCommand.Execute(null);
+                RestartGameCommand.Execute(null);
             }
         }
 
@@ -102,6 +104,18 @@ namespace WpfSaper.ViewModel
             }
         }
 
+        public ICommand RestartGameCommand
+        {
+            get
+            {
+                if (restartGameCommand == null)
+                {
+                    restartGameCommand = new RelayCommand((arg) => { StartGame(); });
+                }
+                return restartGameCommand;
+            }
+        }
+
         public ICommand ExitApplicationCommand
         {
             get
@@ -148,54 +162,41 @@ namespace WpfSaper.ViewModel
                 }
                 return tileLeftAndRightClickedCommand;
             }
-        }
-
-
-        private void HandleTileLeftAndRightClicked(object arg)
-        {
-            Tile tile = arg as Tile;
-            if (tile != null)
-            {
-                foreach(var n in tile.Neighbours)
-                {
-                    if (n.State == Tile.TileState.Covered)
-                    {
-                        n.UncoverTile();
-                    }
-                }
-            }            
-        }
+        }        
 
         private void OnPropertyChanged([CallerMemberName] string propName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
 
+        private void HandleTileLeftAndRightClicked(object arg)
+        {
+            if (!minefield.IsGameEnded)
+            {
+                Tile tile = arg as Tile;
+                if (tile != null)
+                {
+                    foreach (var n in tile.Neighbours)
+                    {
+                        if (n.State == Tile.TileState.Covered)
+                        {
+                            n.UncoverTile();
+                        }
+                    }
+                }
+            }
+        }
+
         private void HandleTileRightClicked(object arg)
         {
-            if (AreBothNouseKeysPressed())
-            {
-                HandleTileLeftAndRightClicked(arg);
-            }
-
             if (!minefield.IsGameEnded)
             {
                 (arg as Tile)?.ToggleFlag();
             }
         }
 
-        private bool AreBothNouseKeysPressed()
-        {
-            return (Mouse.LeftButton == MouseButtonState.Pressed && Mouse.RightButton == MouseButtonState.Pressed);
-        }
-
         private void HandleTileClicked(object arg)
         {
-            if (AreBothNouseKeysPressed())
-            {
-                HandleTileLeftAndRightClicked(arg);
-            }
-
             if (!minefield.IsGameEnded)
             {
                 (arg as Tile)?.UncoverTile();
@@ -207,8 +208,14 @@ namespace WpfSaper.ViewModel
             var gameConfigWindow = new GameConfigWindow();
             if(gameConfigWindow.ShowDialog().GetValueOrDefault())
             {
-                Minefield = minefieldFactory.CreateNew(gameConfigWindow.GameConfig);
-            }
+                this.gameConfig = gameConfigWindow.GameConfig;
+                StartGame();
+            }            
+        }
+
+        private void StartGame()
+        {
+            Minefield = minefieldFactory.CreateNew(gameConfig);
         }
 
         private void ShowAboutBoxWindow()

@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace WpfSaper.Model
 {
-    class Minefield
+    class Minefield : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler<GameEndedEventArgs> GameEnded;
         public bool IsGameEnded;
 
@@ -17,17 +19,32 @@ namespace WpfSaper.Model
 
         private int bombsInMinefield = -1;
         private int tilesCovered;
-
+        private int tilesFlagged = 0;
+        
         public Minefield(List<List<Tile>> tiles)
         {
             this.tiles = tiles;
+            var allTiles = this.tiles.SelectMany(t => t).ToArray();
+            tilesCovered = allTiles.Length;
 
-            foreach(var tile in this.tiles.SelectMany(t => t))
+            foreach (var tile in allTiles)
             {
                 tile.StateChanged += Tile_StateChanged;
-                tilesCovered++;
             }
-        }               
+        }       
+        
+        public int TilesFlagged
+        {
+            get { return tilesFlagged; }
+            private set
+            {
+                if (tilesFlagged != value)
+                {
+                    tilesFlagged = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public List<List<Tile>> Tiles
         {
@@ -64,6 +81,11 @@ namespace WpfSaper.Model
                 else
                 {
                     tilesCovered--;
+                }
+
+                if (e.CurrentState == Tile.TileState.Flagged)
+                {
+                    TilesFlagged++;
                 }
 
                 //Check end game criteria
@@ -103,6 +125,11 @@ namespace WpfSaper.Model
             }
 
             public bool IsWon { get; private set; }
+        }
+
+        private void OnPropertyChanged([CallerMemberName] string propName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
     }
 }

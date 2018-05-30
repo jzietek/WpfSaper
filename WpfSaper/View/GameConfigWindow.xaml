@@ -5,25 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:localVM="clr-namespace:WpfSaper.ViewModel"
         mc:Ignorable="d"
-        Title="Choose new game difficulty" 
+        Title=" Choose new game difficulty" 
         Height="275" 
-        Width="200" 
-        WindowStyle="ToolWindow"
-        SizeToContent="Height">
-    <Window.Resources>
-        <!--<localVM:GameConfigViewModel x:Key="gameConfigVM" />-->
-    </Window.Resources>
+        Width="200"
+        SizeToContent="Height" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow">
     <Window.DataContext>
         <localVM:GameConfigViewModel />
     </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+    </Window.Resources>
     
-    <Grid Name="layoutGrid">
+    <Grid Name="layoutGrid">        
         <StackPanel Orientation="Vertical" >
             <StackPanel.Resources>
                 <Style TargetType="RadioButton">
                     <Setter Property="Margin" Value="8, 8, 0, 0" />
                     <Setter Property="HorizontalAlignment" Value="Left" />
-                    <Setter Property="VerticalAlignment" Value="Top" />
+                    <Setter Property="VerticalAlignment" Value="Top" />                    
                 </Style>
                 <Style TargetType="TextBox">
                     <Setter Property="Margin" Value="0,2" />

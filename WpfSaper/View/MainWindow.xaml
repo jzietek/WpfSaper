@@ -9,10 +9,14 @@
         xmlns:localControls="clr-namespace:WpfSaper.Controls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="WPF Saper" Height="600" Width="560">
+        Title="WPF Saper" Height="600" Width="534" Icon="/WpfSaper;component/Resources/SaperIcon.png">
     <Window.Resources>
         <localVM:MainWindowViewModel x:Key="mainWindowViewModel" />
         <localConverters:BombsAroundConverter x:Key="bombsAroundConverter" />
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
     </Window.Resources>
     <Grid DataContext="{StaticResource mainWindowViewModel}">
         <DockPanel>
@@ -24,7 +28,28 @@
                 </MenuItem>
                 <MenuItem Header="_About" Command="{Binding ShowAboutBoxCommand}" InputGestureText="Ctrl+A" />
             </Menu>
-            <Viewbox DataContext="{Binding Minefield}">
+            <Grid DockPanel.Dock="Top" Margin="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="55" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="restartButton" Grid.Column="1" Command="{Binding Source={StaticResource mainWindowViewModel}, Path=RestartGameCommand}">Restart</Button>
+                <WrapPanel Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,5,0">
+                    <localControls:TileControl TileState="Flagged" />
+                    <WrapPanel Margin="3,3,0,0">
+                        <WrapPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="Bold" />
+                            </Style>
+                        </WrapPanel.Resources>
+                        <TextBlock x:Name="flaggedTilestLabel" Text="{Binding Minefield.TilesFlagged}" />
+                        <TextBlock Text=" / " />
+                        <TextBlock x:Name="bombsInMinefieldLabel" Text="{Binding Minefield.BombsInMinefiled}" />
+                    </WrapPanel>
+                </WrapPanel>
+            </Grid>
+            <Viewbox Margin="4" DataContext="{Binding Minefield}">
                 <ItemsControl x:Name="TileRows" ItemsSource="{Binding Tiles}" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
