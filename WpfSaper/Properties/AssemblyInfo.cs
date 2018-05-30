@@ -8,7 +8,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("WPF Saper")]
-[assembly: AssemblyDescription("Simple Minesweeper game developed in WPF and C#.")]
+[assembly: AssemblyDescription("A simple clone of Microsoft Minesweeper game. Developed for fun in WPF and C#.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Jacek Ziętek")]
 [assembly: AssemblyProduct("WPF Saper")]

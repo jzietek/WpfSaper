@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WpfSaper.Tests")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("TestTitle")]
+[assembly: AssemblyDescription("TestDescription")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WpfSaper.Tests")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("TestCompany")]
+[assembly: AssemblyProduct("TestProduct")]
+[assembly: AssemblyCopyright("TestCopyright")]
+[assembly: AssemblyTrademark("TestTradeMark")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible

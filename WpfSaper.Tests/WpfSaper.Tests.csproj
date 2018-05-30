@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MinefieldFactoryTests.cs" />
     <Compile Include="Services\RandomBooleansGeneratorTests.cs" />
+    <Compile Include="ViewModel\AboutWindowViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

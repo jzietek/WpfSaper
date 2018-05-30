@@ -9,7 +9,7 @@
         xmlns:localControls="clr-namespace:WpfSaper.Controls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="WPF Saper" Height="600" Width="534" Icon="/WpfSaper;component/Resources/SaperIcon.png">
+        Name="MainWindowInstance" Title="WPF Saper" Height="600" Width="534" Icon="/WpfSaper;component/Resources/SaperIcon.png">
     <Window.Resources>
         <localVM:MainWindowViewModel x:Key="mainWindowViewModel" />
         <localConverters:BombsAroundConverter x:Key="bombsAroundConverter" />
@@ -22,11 +22,11 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top" >
                 <MenuItem Header="_Game">
-                    <MenuItem Header="_New game" Command="{Binding NewGameCommand}" InputGestureText="Ctrl+N" />
+                    <MenuItem Header="_New game" Command="{Binding NewGameCommand}" CommandParameter="{Binding ElementName=MainWindowInstance}" InputGestureText="Ctrl+N" />
                     <Separator />
                     <MenuItem Header="E_xit" Command="{Binding ExitApplicationCommand}" InputGestureText="Ctrl+X" />
                 </MenuItem>
-                <MenuItem Header="_About" Command="{Binding ShowAboutBoxCommand}" InputGestureText="Ctrl+A" />
+                <MenuItem Header="_About" Command="{Binding ShowAboutBoxCommand}" CommandParameter="{Binding ElementName=MainWindowInstance}" InputGestureText="Ctrl+A" />
             </Menu>
             <Grid DockPanel.Dock="Top" Margin="3">
                 <Grid.ColumnDefinitions>
@@ -36,16 +36,16 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="restartButton" Grid.Column="1" Command="{Binding Source={StaticResource mainWindowViewModel}, Path=RestartGameCommand}">Restart</Button>
                 <WrapPanel Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,5,0">
-                    <localControls:TileControl TileState="Flagged" />
+                    <localControls:TileControl TileState="Flagged" Click="TileControl_Click" />
                     <WrapPanel Margin="3,3,0,0">
                         <WrapPanel.Resources>
                             <Style TargetType="TextBlock">
                                 <Setter Property="FontWeight" Value="Bold" />
                             </Style>
                         </WrapPanel.Resources>
-                        <TextBlock x:Name="flaggedTilestLabel" Text="{Binding Minefield.TilesFlagged}" />
+                        <TextBlock x:Name="flaggedTilestLabel" Text="{Binding Minefield.TilesFlagged}" ToolTip="Current flags count." />
                         <TextBlock Text=" / " />
-                        <TextBlock x:Name="bombsInMinefieldLabel" Text="{Binding Minefield.BombsInMinefiled}" />
+                        <TextBlock x:Name="bombsInMinefieldLabel" Text="{Binding Minefield.BombsInMinefiled}" ToolTip="Total bombs count."/>
                     </WrapPanel>
                 </WrapPanel>
             </Grid>
@@ -70,7 +70,7 @@
                                                     <i:InvokeCommandAction Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileRightClickedCommand}" CommandParameter="{Binding}"/>
                                                 </i:EventTrigger>
                                                 <i:EventTrigger EventName="LeftAndRightClick">
-                                                    <i:InvokeCommandAction Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileRightClickedCommand}" CommandParameter="{Binding}"/>
+                                                    <i:InvokeCommandAction Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileLeftAndRightClickedCommand}" CommandParameter="{Binding}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </localControls:TileControl>

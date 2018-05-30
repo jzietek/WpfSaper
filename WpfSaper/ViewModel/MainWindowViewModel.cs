@@ -86,7 +86,7 @@ namespace WpfSaper.ViewModel
             {
                 if (showAboutBoxCommand == null)
                 {
-                    showAboutBoxCommand = new RelayCommand( (arg) => { ShowAboutBoxWindow(); } );
+                    showAboutBoxCommand = new RelayCommand( (arg) => { ShowAboutBoxWindow(arg as Window); } );
                 }
                 return showAboutBoxCommand;
             }
@@ -98,7 +98,7 @@ namespace WpfSaper.ViewModel
             {
                 if (newGameCommand == null)
                 {
-                    newGameCommand = new RelayCommand((arg) => { ConfigureAndStartNewGame(); });
+                    newGameCommand = new RelayCommand((arg) => { ConfigureAndStartNewGame(arg as Window); });
                 }
                 return newGameCommand;
             }
@@ -203,10 +203,11 @@ namespace WpfSaper.ViewModel
             }
         }
 
-        private void ConfigureAndStartNewGame()
+        private void ConfigureAndStartNewGame(Window mainWindow)
         {
-            var gameConfigWindow = new GameConfigWindow();
-            if(gameConfigWindow.ShowDialog().GetValueOrDefault())
+            var gameConfigWindow = new GameConfigWindow() { Owner = mainWindow };
+
+            if (gameConfigWindow.ShowDialog().GetValueOrDefault())
             {
                 this.gameConfig = gameConfigWindow.GameConfig;
                 StartGame();
@@ -218,9 +219,9 @@ namespace WpfSaper.ViewModel
             Minefield = minefieldFactory.CreateNew(gameConfig);
         }
 
-        private void ShowAboutBoxWindow()
+        private void ShowAboutBoxWindow(Window mainWindow)
         {
-            AboutWindow aboutWindow = new AboutWindow();
+            AboutWindow aboutWindow = new AboutWindow() { Owner = mainWindow };
             aboutWindow.Show();
         }
     }
