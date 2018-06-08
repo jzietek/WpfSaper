@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Reflection;
 
-namespace WpfSaper.ViewModel
+namespace WpfSaper.ViewModels
 {
     public class AboutWindowViewModel
     {
-        private Assembly assembly;
+        private readonly Assembly assembly;
 
         public AboutWindowViewModel(Assembly assembly)
         {

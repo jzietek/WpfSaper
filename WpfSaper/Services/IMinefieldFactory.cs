@@ -1,5 +1,5 @@
 ﻿using System;
-using WpfSaper.Model;
+using WpfSaper.Models;
 
 namespace WpfSaper.Services
 {

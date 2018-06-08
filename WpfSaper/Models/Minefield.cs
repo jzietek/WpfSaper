@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
-namespace WpfSaper.Model
+namespace WpfSaper.Models
 {
     class Minefield : INotifyPropertyChanged
     {
@@ -68,11 +65,10 @@ namespace WpfSaper.Model
 
         private void Tile_StateChanged(object sender, Tile.StateChangedEventArgs e)
         {
-            Tile tile = sender as Tile;
-            if (tile != null && e != null)
+            if (sender is Tile tile && e != null)
             {
                 System.Diagnostics.Debug.WriteLine($"{tile.Id}: {e.CurrentState}");
-                             
+
                 //Handle covered count
                 if (e.CurrentState == Tile.TileState.Covered)
                 {
@@ -100,12 +96,18 @@ namespace WpfSaper.Model
                     return;
                 }
 
-                //Propagate uncovering
-                if (tile.BombsAround == 0)
+                //Propagate uncovering for covered ones
+                if (tile.State == Tile.TileState.Uncovered)
                 {
-                    foreach(var n in tile.Neighbours)
+                    if (tile.BombsAround == 0)
                     {
-                        n.UncoverTile();
+                        System.Diagnostics.Debug.WriteLine($"Propagating uncovering from tile Id: {tile.Id}");
+
+                        var coveredNeighbours = tile.Neighbours.Where(n => n.State == Tile.TileState.Covered);
+                        foreach (var n in coveredNeighbours)
+                        {
+                            n.UncoverTile();
+                        }
                     }
                 }
             }

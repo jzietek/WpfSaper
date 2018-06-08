@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace WpfSaper.Model
+namespace WpfSaper.Models
 {
     class Tile : INotifyPropertyChanged
     {

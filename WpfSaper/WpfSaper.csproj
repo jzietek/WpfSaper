@@ -81,28 +81,28 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BombsAroundConverter.cs" />
-    <Compile Include="ViewModel\AboutWindowViewModel.cs" />
-    <Compile Include="ViewModel\GameConfigViewModel.cs" />
-    <Compile Include="View\AboutWindow.xaml.cs">
+    <Compile Include="ViewModels\AboutWindowViewModel.cs" />
+    <Compile Include="ViewModels\GameConfigViewModel.cs" />
+    <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\GameConfigWindow.xaml.cs">
+    <Compile Include="Views\GameConfigWindow.xaml.cs">
       <DependentUpon>GameConfigWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\GameConfig.cs" />
-    <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="Models\GameConfig.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Controls\TileControl.xaml.cs">
       <DependentUpon>TileControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\AboutWindow.xaml">
+    <Page Include="Views\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\GameConfigWindow.xaml">
+    <Page Include="Views\GameConfigWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -111,7 +111,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="View\MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -121,12 +121,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Minefield.cs" />
+    <Compile Include="Models\Minefield.cs" />
     <Compile Include="Services\IMinefieldFactory.cs" />
     <Compile Include="Services\Impl\MinefieldFactory.cs" />
     <Compile Include="Services\IBooleansGenerator.cs" />
     <Compile Include="Services\Impl\RandomBooleansGenerator.cs" />
-    <Compile Include="Model\Tile.cs" />
+    <Compile Include="Models\Tile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -154,6 +154,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Localization\" />
     <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>

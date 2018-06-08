@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
 using Shouldly;
 using System.Reflection;
-using WpfSaper.ViewModel;
+using WpfSaper.ViewModels;
 
-namespace WpfSaper.Tests.ViewModel
+namespace WpfSaper.Tests.ViewModels
 {
     [TestFixture]
     public class AboutWindowViewModelTests

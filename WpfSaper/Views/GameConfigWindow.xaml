@@ -1,9 +1,9 @@
-﻿<Window x:Class="WpfSaper.View.GameConfigWindow"
+﻿<Window x:Class="WpfSaper.Views.GameConfigWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:localVM="clr-namespace:WpfSaper.ViewModel"
+        xmlns:localVM="clr-namespace:WpfSaper.ViewModels"
         mc:Ignorable="d"
         Title=" Choose new game difficulty" 
         Height="275" 
@@ -54,7 +54,7 @@
                     <TextBox Name="bombsTextBox" Grid.Column="1" Grid.Row="2" Text="{Binding GameConfig.BombsCount}" IsEnabled="{Binding IsCustomSelected}"/>
                 </Grid>
             </Expander>
-            <Button x:Name="btnOk" Margin="10" Click="btnOk_Click">Start new game</Button>
+            <Button x:Name="btnOk" Margin="10" Click="BtnOk_Click">Start new game</Button>
         </StackPanel>
     </Grid>
 </Window>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfSaper"
         xmlns:localConverters="clr-namespace:WpfSaper.Converters"
-        xmlns:localVM="clr-namespace:WpfSaper.ViewModel"
+        xmlns:localVM="clr-namespace:WpfSaper.ViewModels"
         xmlns:localControls="clr-namespace:WpfSaper.Controls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"

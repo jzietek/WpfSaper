@@ -1,15 +1,14 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using WpfSaper.Commands;
-using WpfSaper.Model;
+using WpfSaper.Models;
 using WpfSaper.Services;
 using WpfSaper.Services.Impl;
-using WpfSaper.View;
+using WpfSaper.Views;
 
-namespace WpfSaper.ViewModel
+namespace WpfSaper.ViewModels
 {
     class MainWindowViewModel : INotifyPropertyChanged
     {
@@ -171,10 +170,11 @@ namespace WpfSaper.ViewModel
 
         private void HandleTileLeftAndRightClicked(object arg)
         {
+            System.Diagnostics.Debug.WriteLine("Left and right clicked");
+
             if (!minefield.IsGameEnded)
             {
-                Tile tile = arg as Tile;
-                if (tile != null)
+                if (arg is Tile tile)
                 {
                     foreach (var n in tile.Neighbours)
                     {
@@ -189,6 +189,7 @@ namespace WpfSaper.ViewModel
 
         private void HandleTileRightClicked(object arg)
         {
+            System.Diagnostics.Debug.WriteLine("Right clicked");
             if (!minefield.IsGameEnded)
             {
                 (arg as Tile)?.ToggleFlag();
@@ -197,6 +198,7 @@ namespace WpfSaper.ViewModel
 
         private void HandleTileClicked(object arg)
         {
+            System.Diagnostics.Debug.WriteLine("Left  clicked");
             if (!minefield.IsGameEnded)
             {
                 (arg as Tile)?.UncoverTile();

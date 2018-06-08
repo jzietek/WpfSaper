@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using WpfSaper.Model;
+using WpfSaper.Models;
 
-namespace WpfSaper.ViewModel
+namespace WpfSaper.ViewModels
 {
     public class GameConfigViewModel : INotifyPropertyChanged
     {

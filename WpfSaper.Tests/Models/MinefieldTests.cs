@@ -1,14 +1,10 @@
 ﻿using NUnit.Framework;
 using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WpfSaper.Models;
 using WpfSaper.Services;
 using WpfSaper.Services.Impl;
 
-namespace WpfSaper.Tests
+namespace WpfSaper.Tests.Models
 {
     [TestFixture]
     public class MinefieldTests
@@ -21,11 +17,11 @@ namespace WpfSaper.Tests
             var minefield = factory.CreateNew(5, 5, 10);
 
             var firstTile = minefield.Tiles[0][0];
-            firstTile.State.ShouldBe(Model.Tile.TileState.Covered);
+            firstTile.State.ShouldBe(Tile.TileState.Covered);
             firstTile.ToggleFlag();
-            firstTile.State.ShouldBe(Model.Tile.TileState.Flagged);
+            firstTile.State.ShouldBe(Tile.TileState.Flagged);
             firstTile.ToggleFlag();
-            firstTile.State.ShouldBe(Model.Tile.TileState.Covered);
+            firstTile.State.ShouldBe(Tile.TileState.Covered);
         }
     }
 }
