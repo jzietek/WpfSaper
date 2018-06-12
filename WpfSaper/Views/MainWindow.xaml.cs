@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Loc = WpfSaper.Localization.Resources;
 
 namespace WpfSaper
 {
@@ -14,7 +15,7 @@ namespace WpfSaper
 
         private void TileControl_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("This tile is not part of the game :)", "Hey!", MessageBoxButton.OK, MessageBoxImage.Stop);
+            MessageBox.Show(Loc.MainWindow_HeyMessage, Loc.MainWindow_HeyMessage_Title, MessageBoxButton.OK, MessageBoxImage.Stop);
         }
     }
 }

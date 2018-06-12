@@ -7,6 +7,7 @@ using WpfSaper.Models;
 using WpfSaper.Services;
 using WpfSaper.Services.Impl;
 using WpfSaper.Views;
+using Loc = WpfSaper.Localization.Resources;
 
 namespace WpfSaper.ViewModels
 {
@@ -39,11 +40,11 @@ namespace WpfSaper.ViewModels
             MessageBoxResult result = MessageBoxResult.None;
             if (e.IsWon)
             {
-                result = MessageBox.Show("Minefield cleared. You won! One more time?", "You have won :)", MessageBoxButton.YesNo);
+                result = MessageBox.Show(Loc.MainWindow_Message_GameWon_Text, Loc.MainWindow_Message_GameWon_Title, MessageBoxButton.YesNo);
             }
             else
             {
-                result = MessageBox.Show("Game Over! One more time?", "You have lost :(", MessageBoxButton.YesNo );
+                result = MessageBox.Show(Loc.MainWindow_Message_GameLost_Text, Loc.MainWindow_Message_GameLost_Title, MessageBoxButton.YesNo );
             }
 
             if (result == MessageBoxResult.No)

@@ -73,7 +73,7 @@ namespace WpfSaper.Models
 
         public void SetMedium()
         {
-            SetCustom(10, 10, 22);
+            SetCustom(10, 10, 16);
         }
 
         public void SetHard()

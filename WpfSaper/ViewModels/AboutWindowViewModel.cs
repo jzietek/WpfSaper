@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Reflection;
 
 namespace WpfSaper.ViewModels
@@ -29,6 +30,8 @@ namespace WpfSaper.ViewModels
         public string Trademark { get { return GetAssemblyAttribute<AssemblyTrademarkAttribute>().Trademark; } }        
 
         public string Version { get { return GetAssemblyAttribute<AssemblyFileVersionAttribute>().Version; }}
+
+        public string ProjectSite => ConfigurationManager.AppSettings["projectSite"];
 
         private T GetAssemblyAttribute<T>() where T : Attribute
         {

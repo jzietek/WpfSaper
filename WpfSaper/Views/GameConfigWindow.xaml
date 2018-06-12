@@ -3,14 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:localVM="clr-namespace:WpfSaper.ViewModels"
+        xmlns:viewModels="clr-namespace:WpfSaper.ViewModels"
+        xmlns:loc="clr-namespace:WpfSaper.Localization"
         mc:Ignorable="d"
-        Title=" Choose new game difficulty" 
+        Title="{x:Static loc:Resources.ConfigWindow_Title}" 
         Height="275" 
         Width="200"
         SizeToContent="Height" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow">
     <Window.DataContext>
-        <localVM:GameConfigViewModel />
+        <viewModels:GameConfigViewModel />
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="{x:Type Window}">
@@ -31,10 +32,10 @@
                     <Setter Property="Margin" Value="0,2" />
                 </Style>
             </StackPanel.Resources>
-            <RadioButton Name="optionEasy" GroupName="difficulty" Content="_Easy" IsChecked="{Binding IsEasySelected}" />
-            <RadioButton Name="optionMedium" GroupName="difficulty" Content="_Medium" IsChecked="{Binding IsMediumSelected}" />
-            <RadioButton Name="optionHard" GroupName="difficulty" Content="_Hard" IsChecked="{Binding IsHardSelected}" />
-            <RadioButton Name="optionCustom" GroupName="difficulty" Content="_Custom" IsChecked="{Binding IsCustomSelected}" />
+            <RadioButton Name="optionEasy" GroupName="difficulty" Content="{x:Static loc:Resources.ConfigWindow_OptionEasy_Text}" IsChecked="{Binding IsEasySelected}" />
+            <RadioButton Name="optionMedium" GroupName="difficulty" Content="{x:Static loc:Resources.ConfigWindow_OptionNormal_Text}" IsChecked="{Binding IsMediumSelected}" />
+            <RadioButton Name="optionHard" GroupName="difficulty" Content="{x:Static loc:Resources.ConfigWindow_OptionHard_Text}" IsChecked="{Binding IsHardSelected}" />
+            <RadioButton Name="optionCustom" GroupName="difficulty" Content="{x:Static loc:Resources.ConfigWindow_OptionCustom_Text}" IsChecked="{Binding IsCustomSelected}" />
             <Expander Margin="5,8,5,0" Header="Details" IsExpanded="{Binding IsExpanded}" >
                 <Grid>
                     <Grid.RowDefinitions>
@@ -46,15 +47,15 @@
                         <ColumnDefinition Width="100" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0">_Horizontal Tiles:</Label>
-                    <Label Grid.Column="0" Grid.Row="1">_Vertical Tiles:</Label>
-                    <Label Grid.Column="0" Grid.Row="2">_Bombs:</Label>
+                    <Label Grid.Column="0" Grid.Row="0" Content="{x:Static loc:Resources.ConfigWindow_OptionCustom_HorizontalTiles_Text}" Target="{Binding ElementName=horizontalTilesTextBox}" />
+                    <Label Grid.Column="0" Grid.Row="1" Content="{x:Static loc:Resources.ConfigWindow_OptionCustom_VerticalTiles_Text}" Target="{Binding ElementName=verticalTilesTextBox}" />
+                    <Label Grid.Column="0" Grid.Row="2" Content="{x:Static loc:Resources.ConfigWindow_OptionCustom_BombsCount_Text}" Target="{Binding ElementName=bombsTextBox}" />
                     <TextBox Name="horizontalTilesTextBox" Grid.Column="1" Grid.Row="0" Text="{Binding GameConfig.HorizontalTilesCount}" IsEnabled="{Binding IsCustomSelected}" />
                     <TextBox Name="verticalTilesTextBox" Grid.Column="1" Grid.Row="1" Text="{Binding GameConfig.VerticalTilesCount}" IsEnabled="{Binding IsCustomSelected}"/>
                     <TextBox Name="bombsTextBox" Grid.Column="1" Grid.Row="2" Text="{Binding GameConfig.BombsCount}" IsEnabled="{Binding IsCustomSelected}"/>
                 </Grid>
             </Expander>
-            <Button x:Name="btnOk" Margin="10" Click="BtnOk_Click">Start new game</Button>
+            <Button x:Name="btnOk" Margin="10" Click="BtnOk_Click" Content="{x:Static loc:Resources.ConfigWindow_StartGameButton_Text}" />
         </StackPanel>
     </Grid>
 </Window>

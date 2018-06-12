@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfSaper"
-        xmlns:localVM="clr-namespace:WpfSaper.ViewModels"
+        xmlns:viewModels="clr-namespace:WpfSaper.ViewModels"
+        xmlns:loc="clr-namespace:WpfSaper.Localization"
         mc:Ignorable="d"
-        Title="About" Height="350" Width="350" ShowInTaskbar="False" WindowStyle="ToolWindow" SizeToContent="Height" WindowStartupLocation="CenterOwner">
+        Title="{x:Static loc:Resources.AboutWindow_Title}" Height="350" Width="350" ShowInTaskbar="False" WindowStyle="ToolWindow" SizeToContent="Height" WindowStartupLocation="CenterOwner">
     <Window.Resources>
-        <localVM:AboutWindowViewModel x:Key="viewModel" />        
+        <viewModels:AboutWindowViewModel x:Key="viewModel" />        
     </Window.Resources>
     <Grid DataContext="{StaticResource viewModel}">
         <StackPanel Margin="8">
@@ -23,23 +23,25 @@
             <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
             <TextBlock />
             <WrapPanel>
-                <TextBlock Text="Author: " />
+                <TextBlock Text="{x:Static loc:Resources.AboutWindow_LabelAuthor_Text}" />
                 <TextBlock Text="{Binding Company}" />
             </WrapPanel>
             <WrapPanel>
-                <TextBlock Text="Version: " />
+                <TextBlock Text="{x:Static loc:Resources.AboutWindow_LabelVersion_Text}" />
                 <TextBlock Text="{Binding Version}" />
             </WrapPanel>            
             <TextBlock Text="{Binding Copyright}" />
             <WrapPanel>
-                <TextBlock Text="Project Site: " />
+                <TextBlock Text="{x:Static loc:Resources.AboutWindow_LabelProjectSite_Text}" />
                 <TextBlock>
-                    <Hyperlink NavigateUri="https://github.com/jzietek/WpfSaper">https://github.com/jzietek/WpfSaper</Hyperlink>
+                    <Hyperlink NavigateUri="{Binding ProjectSite}" RequestNavigate="Hyperlink_RequestNavigate" >
+                        <TextBlock Text="{Binding ProjectSite}" />
+                    </Hyperlink>
                 </TextBlock>
             </WrapPanel>
             <TextBlock />
 
-            <Button HorizontalAlignment="Right" Width="100" Height="32" Click="Button_Click" >Close</Button>
+            <Button HorizontalAlignment="Right" Width="100" Height="32" Click="Button_Click" Content="{x:Static loc:Resources.AboutWindow_ButtonClose_Text}" />
         </StackPanel>
     </Grid>
 </Window>

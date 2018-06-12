@@ -3,16 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfSaper"
-        xmlns:localConverters="clr-namespace:WpfSaper.Converters"
-        xmlns:localVM="clr-namespace:WpfSaper.ViewModels"
-        xmlns:localControls="clr-namespace:WpfSaper.Controls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:loc="clr-namespace:WpfSaper.Localization"
+        xmlns:converters="clr-namespace:WpfSaper.Converters"
+        xmlns:viewModels="clr-namespace:WpfSaper.ViewModels"
+        xmlns:controls="clr-namespace:WpfSaper.Controls"        
         mc:Ignorable="d"
-        Name="MainWindowInstance" Title="WPF Saper" Height="600" Width="534" Icon="/WpfSaper;component/Resources/SaperIcon.png">
+        Name="MainWindowInstance" Title="{x:Static loc:Resources.MainWindow_Title}" Height="600" Width="534" Icon="/WpfSaper;component/Resources/SaperIcon.png">
     <Window.Resources>
-        <localVM:MainWindowViewModel x:Key="mainWindowViewModel" />
-        <localConverters:BombsAroundConverter x:Key="bombsAroundConverter" />
+        <viewModels:MainWindowViewModel x:Key="mainWindowViewModel" />
+        <converters:BombsAroundConverter x:Key="bombsAroundConverter" />
         <Style TargetType="{x:Type Window}">
             <Setter Property="FontFamily" Value="Segoe UI" />
             <Setter Property="FontSize" Value="16" />
@@ -21,12 +21,12 @@
     <Grid DataContext="{StaticResource mainWindowViewModel}">
         <DockPanel>
             <Menu DockPanel.Dock="Top" >
-                <MenuItem Header="_Game">
-                    <MenuItem Header="_New game" Command="{Binding NewGameCommand}" CommandParameter="{Binding ElementName=MainWindowInstance}" InputGestureText="Ctrl+N" />
+                <MenuItem Header="{x:Static loc:Resources.MenuItem_Game}">
+                    <MenuItem Header="{x:Static loc:Resources.MenuItem_GameConfig}" Command="{Binding NewGameCommand}" CommandParameter="{Binding ElementName=MainWindowInstance}" InputGestureText="Ctrl+N" />
                     <Separator />
-                    <MenuItem Header="E_xit" Command="{Binding ExitApplicationCommand}" InputGestureText="Ctrl+X" />
+                    <MenuItem Header="{x:Static loc:Resources.MenuItem_Exit}" Command="{Binding ExitApplicationCommand}" InputGestureText="Ctrl+X" />
                 </MenuItem>
-                <MenuItem Header="_About" Command="{Binding ShowAboutBoxCommand}" CommandParameter="{Binding ElementName=MainWindowInstance}" InputGestureText="Ctrl+A" />
+                <MenuItem Header="{x:Static loc:Resources.MenuItem_About}" Command="{Binding ShowAboutBoxCommand}" CommandParameter="{Binding ElementName=MainWindowInstance}" InputGestureText="Ctrl+A" />
             </Menu>
             <Grid DockPanel.Dock="Top" Margin="3">
                 <Grid.ColumnDefinitions>
@@ -34,18 +34,21 @@
                     <ColumnDefinition Width="55" />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="restartButton" Grid.Column="1" Command="{Binding Source={StaticResource mainWindowViewModel}, Path=RestartGameCommand}">Restart</Button>
+                <Button x:Name="restartButton" 
+                        Grid.Column="1" 
+                        Command="{Binding Source={StaticResource mainWindowViewModel}, Path=RestartGameCommand}" 
+                        Content="{x:Static loc:Resources.MainWindow_RestartButton_Text}" />
                 <WrapPanel Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,5,0">
-                    <localControls:TileControl TileState="Flagged" Click="TileControl_Click" />
+                    <controls:TileControl TileState="Flagged" Click="TileControl_Click" />
                     <WrapPanel Margin="3,3,0,0">
                         <WrapPanel.Resources>
                             <Style TargetType="TextBlock">
                                 <Setter Property="FontWeight" Value="Bold" />
                             </Style>
                         </WrapPanel.Resources>
-                        <TextBlock x:Name="flaggedTilestLabel" Text="{Binding Minefield.TilesFlagged}" ToolTip="Current flags count." />
+                        <TextBlock x:Name="flaggedTilestLabel" Text="{Binding Minefield.TilesFlagged}" ToolTip="{x:Static loc:Resources.MainWindow_CurrentFlagCount_ToolTip}" />
                         <TextBlock Text=" / " />
-                        <TextBlock x:Name="bombsInMinefieldLabel" Text="{Binding Minefield.BombsInMinefiled}" ToolTip="Total bombs count."/>
+                        <TextBlock x:Name="bombsInMinefieldLabel" Text="{Binding Minefield.BombsInMinefiled}" ToolTip="{x:Static loc:Resources.MainWindow_TotalBombsCount_ToolTip}"/>
                     </WrapPanel>
                 </WrapPanel>
             </Grid>
@@ -61,7 +64,7 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <localControls:TileControl x:Name="tile" >
+                                        <controls:TileControl x:Name="tile" >
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Click">
                                                     <i:InvokeCommandAction Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileClickedCommand}" CommandParameter="{Binding}"/>
@@ -73,7 +76,7 @@
                                                     <i:InvokeCommandAction Command="{Binding Source={StaticResource mainWindowViewModel}, Path=TileLeftAndRightClickedCommand}" CommandParameter="{Binding}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
-                                        </localControls:TileControl>
+                                        </controls:TileControl>
                                         <DataTemplate.Triggers>
                                             <DataTrigger Binding="{Binding Path=State, Mode=OneWay}" Value="Covered">
                                                 <Setter TargetName="tile" Property="TileState" Value="Covered" />
