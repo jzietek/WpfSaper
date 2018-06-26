@@ -31,7 +31,7 @@ namespace WpfSaper.ViewModels
 
         public string Version { get { return GetAssemblyAttribute<AssemblyFileVersionAttribute>().Version; }}
 
-        public string ProjectSite => ConfigurationManager.AppSettings["projectSite"];
+        public static string ProjectSite => ConfigurationManager.AppSettings["projectSite"];
 
         private T GetAssemblyAttribute<T>() where T : Attribute
         {

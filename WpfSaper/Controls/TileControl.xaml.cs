@@ -64,13 +64,13 @@ namespace WpfSaper.Controls
             {
                 if (handleTileClickCommand == null)
                 {
-                    handleTileClickCommand = new RelayCommand((arg) => { HandleTileClicked(arg); });
+                    handleTileClickCommand = new RelayCommand(_ => { HandleTileClicked(); });
                 }
                 return handleTileClickCommand;
             }
         }
 
-        private void HandleTileClicked(object arg)
+        private void HandleTileClicked()
         {
             if (Mouse.LeftButton == MouseButtonState.Pressed && Mouse.RightButton == MouseButtonState.Pressed)
             {

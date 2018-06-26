@@ -9,7 +9,7 @@ namespace WpfSaper.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             int v = (int) value;
-            return (v == 0 ? string.Empty : v.ToString());
+            return (v == 0 ? string.Empty : v.ToString(CultureInfo.CurrentCulture));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

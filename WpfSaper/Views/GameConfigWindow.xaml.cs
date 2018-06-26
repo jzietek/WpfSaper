@@ -24,7 +24,7 @@ namespace WpfSaper.Views
         {
             get
             {
-                return (this.DataContext as GameConfigViewModel)?.GameConfig;
+                return (DataContext as GameConfigViewModel)?.GameConfig;
             }
         }
     }

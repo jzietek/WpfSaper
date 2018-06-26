@@ -37,14 +37,14 @@ namespace WpfSaper.ViewModels
 
         private void Minefield_GameEnded(object sender, Minefield.GameEndedEventArgs e)
         {
-            MessageBoxResult result = MessageBoxResult.None;
+            MessageBoxResult result;
             if (e.IsWon)
             {
                 result = MessageBox.Show(Loc.MainWindow_Message_GameWon_Text, Loc.MainWindow_Message_GameWon_Title, MessageBoxButton.YesNo);
             }
             else
             {
-                result = MessageBox.Show(Loc.MainWindow_Message_GameLost_Text, Loc.MainWindow_Message_GameLost_Title, MessageBoxButton.YesNo );
+                result = MessageBox.Show(Loc.MainWindow_Message_GameLost_Text, Loc.MainWindow_Message_GameLost_Title, MessageBoxButton.YesNo);
             }
 
             if (result == MessageBoxResult.No)
@@ -78,7 +78,7 @@ namespace WpfSaper.ViewModels
                     OnPropertyChanged();
                 }
             }
-        }        
+        }
 
         public ICommand ShowAboutBoxCommand
         {
@@ -86,7 +86,7 @@ namespace WpfSaper.ViewModels
             {
                 if (showAboutBoxCommand == null)
                 {
-                    showAboutBoxCommand = new RelayCommand( (arg) => { ShowAboutBoxWindow(arg as Window); } );
+                    showAboutBoxCommand = new RelayCommand((arg) => { ShowAboutBoxWindow(arg as Window); });
                 }
                 return showAboutBoxCommand;
             }
@@ -162,7 +162,7 @@ namespace WpfSaper.ViewModels
                 }
                 return tileLeftAndRightClickedCommand;
             }
-        }        
+        }
 
         private void OnPropertyChanged([CallerMemberName] string propName = null)
         {
@@ -173,16 +173,13 @@ namespace WpfSaper.ViewModels
         {
             System.Diagnostics.Debug.WriteLine("Left and right clicked");
 
-            if (!minefield.IsGameEnded)
+            if (!minefield.IsGameEnded && arg is Tile tile)
             {
-                if (arg is Tile tile)
+                foreach (var n in tile.Neighbours)
                 {
-                    foreach (var n in tile.Neighbours)
+                    if (n.State == Tile.TileState.Covered)
                     {
-                        if (n.State == Tile.TileState.Covered)
-                        {
-                            n.UncoverTile();
-                        }
+                        n.UncoverTile();
                     }
                 }
             }
@@ -212,9 +209,9 @@ namespace WpfSaper.ViewModels
 
             if (gameConfigWindow.ShowDialog().GetValueOrDefault())
             {
-                this.gameConfig = gameConfigWindow.GameConfig;
+                gameConfig = gameConfigWindow.GameConfig;
                 StartGame();
-            }            
+            }
         }
 
         private void StartGame()
@@ -222,7 +219,7 @@ namespace WpfSaper.ViewModels
             Minefield = minefieldFactory.CreateNew(gameConfig);
         }
 
-        private void ShowAboutBoxWindow(Window mainWindow)
+        private static void ShowAboutBoxWindow(Window mainWindow)
         {
             AboutWindow aboutWindow = new AboutWindow() { Owner = mainWindow };
             aboutWindow.Show();

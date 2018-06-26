@@ -4,14 +4,12 @@ using WpfSaper.Models;
 
 namespace WpfSaper.ViewModels
 {
-    public class GameConfigViewModel : INotifyPropertyChanged
+    public class GameConfigViewModel : ViewModelBase
     {
         public GameConfigViewModel()
         {
             GameConfig = new GameConfig();
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private bool isEasySelected;
         private bool isMediumSelected = true;
@@ -136,11 +134,6 @@ namespace WpfSaper.ViewModels
                     OnPropertyChanged();
                 }
             }
-        }
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }        
+        }                
     }
 }

@@ -51,7 +51,6 @@ namespace WpfSaper.Commands
             EventHandler handler = CanExecuteChangedInternal;
             if (handler != null)
             {
-                //DispatcherHelper.BeginInvokeOnUIThread(() => handler.Invoke(this, EventArgs.Empty));
                 handler.Invoke(this, EventArgs.Empty);
             }
         }
@@ -59,7 +58,7 @@ namespace WpfSaper.Commands
         public void Destroy()
         {
             canExecute = _ => false;
-            execute = _ => { return; };
+            execute = _ => { };
         }
 
         private static bool DefaultCanExecute(object parameter)

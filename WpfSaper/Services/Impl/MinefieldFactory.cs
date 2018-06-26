@@ -26,7 +26,7 @@ namespace WpfSaper.Services.Impl
             return minefield;
         }        
 
-        private Minefield AllocateTiles(int horizontalTilesCount, int verticalTilesCount, bool[] bomdIndices)
+        private static Minefield AllocateTiles(int horizontalTilesCount, int verticalTilesCount, bool[] bomdIndices)
         {
             int counter = 0;
             var tiles = new List<List<Tile>>();
@@ -44,7 +44,7 @@ namespace WpfSaper.Services.Impl
             return new Minefield(tiles);
         }
 
-        private void AssignNeighbours(Minefield minefield)
+        private static void AssignNeighbours(Minefield minefield)
         {
             int rowsCount = minefield.Tiles.Count;
             for (int i = 0; i < rowsCount; i++)

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -55,3 +56,6 @@ using System.Windows;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly:InternalsVisibleTo("WpfSaper.Tests")]
+
+[assembly: NeutralResourcesLanguage("pl-PL")]
+[assembly: CLSCompliant(false)]

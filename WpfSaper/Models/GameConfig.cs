@@ -12,18 +12,18 @@ namespace WpfSaper.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private int horizontalTilesCount;
-        private int verticalTilesCount;
-        private int bombsCount;
+        private int _horizontalTilesCount;
+        private int _verticalTilesCount;
+        private int _bombsCount;
 
         public int HorizontalTilesCount
         {
-            get { return horizontalTilesCount; }
+            get { return _horizontalTilesCount; }
             set
             {
-                if (horizontalTilesCount != value)
+                if (_horizontalTilesCount != value)
                 {
-                    horizontalTilesCount = value;
+                    _horizontalTilesCount = value;
                     OnPropertyChanged();
                 }
             }
@@ -32,13 +32,13 @@ namespace WpfSaper.Models
         public int VerticalTilesCount {
             get
             {
-                return verticalTilesCount;
+                return _verticalTilesCount;
             }
             set
             {
-                if (verticalTilesCount != value)
+                if (_verticalTilesCount != value)
                 {
-                    verticalTilesCount = value;
+                    _verticalTilesCount = value;
                     OnPropertyChanged();
                 }
             }
@@ -47,13 +47,13 @@ namespace WpfSaper.Models
         public int BombsCount {
             get
             {
-                return bombsCount;
+                return _bombsCount;
             }
             set
             {
-                if (bombsCount != value)
+                if (_bombsCount != value)
                 {
-                    bombsCount = value;
+                    _bombsCount = value;
                     OnPropertyChanged();
                 }
             }

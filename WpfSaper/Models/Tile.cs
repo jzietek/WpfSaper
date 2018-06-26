@@ -13,7 +13,7 @@ namespace WpfSaper.Models
             HasBomb = hasBomb;
         }
 
-        private readonly List<Tile> neighbours = new List<Tile>();
+        private readonly List<Tile> _neighbours = new List<Tile>();
 
         private TileState state = TileState.Covered;
 
@@ -44,7 +44,7 @@ namespace WpfSaper.Models
 
         public bool HasBomb { get; private set; }
 
-        public IEnumerable<Tile> Neighbours { get { return neighbours; }}
+        public IEnumerable<Tile> Neighbours { get { return _neighbours; }}
                 
         public int BombsAround
         {
@@ -52,7 +52,7 @@ namespace WpfSaper.Models
             {
                 if (bombsAround == -1)
                 {
-                    bombsAround = neighbours.Count(x => x.HasBomb);
+                    bombsAround = _neighbours.Count(x => x.HasBomb);
                 }
                 return bombsAround;
             }
@@ -61,8 +61,8 @@ namespace WpfSaper.Models
 
         public void SetNeighbours(IEnumerable<Tile> neighbours)
         {
-            this.neighbours.Clear();
-            this.neighbours.AddRange(neighbours);
+            _neighbours.Clear();
+            _neighbours.AddRange(neighbours);
         }
 
         public void ToggleFlag()
