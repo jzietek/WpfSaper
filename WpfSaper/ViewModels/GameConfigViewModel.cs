@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using WpfSaper.Models;
+﻿using WpfSaper.Models;
 
 namespace WpfSaper.ViewModels
 {
@@ -21,119 +19,60 @@ namespace WpfSaper.ViewModels
 
         public bool IsCustomSelected
         {
-            get
-            {
-                return isCustomSelected;
-            }
+            get { return isCustomSelected;}
             set
             {
-                if (isCustomSelected != value)
+                Set(ref isCustomSelected, value);
+                if (isCustomSelected)
                 {
-                    isCustomSelected = value;
-                    if (isCustomSelected)
-                    {
-                        IsExpanded = true;
-                    }
-                    OnPropertyChanged();
+                    IsExpanded = true;
                 }
             }
         }
 
         public bool IsExpanded
         {
-            get
-            {
-                return isExpanded;
-            }
-            set
-            {
-                if (isExpanded != value)
-                {
-                    isExpanded = value;
-                    OnPropertyChanged();
-                }
-            }
+            get { return isExpanded; }
+            set { Set(ref isExpanded, value); }
         }
 
         public bool IsEasySelected
         {
-            get
-            {
-                return isEasySelected;
-            }
+            get { return isEasySelected; }
             set
             {
-                if (isEasySelected != value)
-                {
-                    isEasySelected = value;
-                    if (isEasySelected)
-                    {
-                        GameConfig.SetEasy();
-                    }
-                    OnPropertyChanged();
-                }
+                Set(ref isEasySelected, value);
+                if (isEasySelected)
+                    GameConfig.SetEasy();
             }
         }
 
         public bool IsMediumSelected
         {
-            get
-            {
-                return isMediumSelected;
-            }
+            get { return isMediumSelected; }
             set
             {
-                if (isMediumSelected != value)
-                {
-                    isMediumSelected = value;
-                    if (isMediumSelected)
-                    {
-                        GameConfig.SetMedium();
-                    }
-                    OnPropertyChanged();
-                }
+                Set(ref isMediumSelected, value);
+                if (isMediumSelected)
+                    GameConfig.SetMedium();
             }
         }
 
         public bool IsHardSelected
         {
-            get
-            {
-                return isHardSelected;
-            }
+            get { return isHardSelected; }
             set
             {
-                if (isHardSelected != value)
-                {
-                    isHardSelected = value;
-                    if (isHardSelected)
-                    {
-                        System.Diagnostics.Debug.WriteLine("IsHard = true");
-                        GameConfig.SetHard();
-                    }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine("IsHard = false");
-                    }
-                    OnPropertyChanged();
-                }
+                Set(ref isHardSelected, value);
+                if (isHardSelected)
+                    GameConfig.SetHard();
             }
         }
 
         public GameConfig GameConfig
         {
-            get
-            {
-                return gameConfig;
-            }
-            private set
-            {
-                if (gameConfig != value)
-                {
-                    gameConfig = value;
-                    OnPropertyChanged();
-                }
-            }
+            get { return gameConfig; }
+            private set { Set(ref gameConfig, value); }
         }                
     }
 }

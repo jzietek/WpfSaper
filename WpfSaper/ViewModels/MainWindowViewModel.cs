@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using WpfSaper.Commands;
 using WpfSaper.Models;
@@ -11,10 +9,8 @@ using Loc = WpfSaper.Localization.Resources;
 
 namespace WpfSaper.ViewModels
 {
-    class MainWindowViewModel : INotifyPropertyChanged
+    class MainWindowViewModel : ViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private ICommand newGameCommand;
         private ICommand restartGameCommand;
         private ICommand showAboutBoxCommand;
@@ -59,23 +55,14 @@ namespace WpfSaper.ViewModels
 
         public Minefield Minefield
         {
-            get
-            {
-                return minefield;
-            }
+            get { return minefield; }
             set
             {
-                if (minefield != value)
+                var oldMinefield = minefield;
+                if (Set(ref minefield, value))
                 {
-                    if (minefield != null)
-                    {
-                        minefield.GameEnded -= Minefield_GameEnded;
-                    }
-
-                    minefield = value;
-                    minefield.GameEnded += Minefield_GameEnded;
-
-                    OnPropertyChanged();
+                    if (minefield != null) minefield.GameEnded += Minefield_GameEnded;
+                    if (oldMinefield != null) oldMinefield.GameEnded -= Minefield_GameEnded;
                 }
             }
         }
@@ -84,11 +71,7 @@ namespace WpfSaper.ViewModels
         {
             get
             {
-                if (showAboutBoxCommand == null)
-                {
-                    showAboutBoxCommand = new RelayCommand((arg) => { ShowAboutBoxWindow(arg as Window); });
-                }
-                return showAboutBoxCommand;
+                return showAboutBoxCommand ?? (showAboutBoxCommand = new RelayCommand((arg) => { ShowAboutBoxWindow(arg as Window); }));
             }
         }
 
@@ -96,11 +79,7 @@ namespace WpfSaper.ViewModels
         {
             get
             {
-                if (newGameCommand == null)
-                {
-                    newGameCommand = new RelayCommand((arg) => { ConfigureAndStartNewGame(arg as Window); });
-                }
-                return newGameCommand;
+                return newGameCommand ?? (newGameCommand = new RelayCommand((arg) => { ConfigureAndStartNewGame(arg as Window); }));
             }
         }
 
@@ -108,11 +87,7 @@ namespace WpfSaper.ViewModels
         {
             get
             {
-                if (restartGameCommand == null)
-                {
-                    restartGameCommand = new RelayCommand((arg) => { StartGame(); });
-                }
-                return restartGameCommand;
+                return restartGameCommand ?? (restartGameCommand = new RelayCommand((arg) => { StartGame(); }));
             }
         }
 
@@ -120,11 +95,7 @@ namespace WpfSaper.ViewModels
         {
             get
             {
-                if (exitApplicationCommand == null)
-                {
-                    exitApplicationCommand = new RelayCommand((arg) => { Application.Current.Shutdown(); });
-                }
-                return exitApplicationCommand;
+                return exitApplicationCommand ?? (exitApplicationCommand = new RelayCommand((arg) => { Application.Current.Shutdown(); }));
             }
         }
 
@@ -132,11 +103,7 @@ namespace WpfSaper.ViewModels
         {
             get
             {
-                if (tileClickedCommand == null)
-                {
-                    tileClickedCommand = new RelayCommand((arg) => { HandleTileClicked(arg); });
-                }
-                return tileClickedCommand;
+                return tileClickedCommand ?? (tileClickedCommand = new RelayCommand((arg) => { HandleTileClicked(arg); }));
             }
         }
 
@@ -144,11 +111,7 @@ namespace WpfSaper.ViewModels
         {
             get
             {
-                if (tileRightClickedCommand == null)
-                {
-                    tileRightClickedCommand = new RelayCommand((arg) => { HandleTileRightClicked(arg); });
-                }
-                return tileRightClickedCommand;
+                return tileRightClickedCommand ?? (tileRightClickedCommand = new RelayCommand((arg) => { HandleTileRightClicked(arg); })); ;
             }
         }
 
@@ -156,17 +119,8 @@ namespace WpfSaper.ViewModels
         {
             get
             {
-                if (tileLeftAndRightClickedCommand == null)
-                {
-                    tileLeftAndRightClickedCommand = new RelayCommand((arg) => { HandleTileLeftAndRightClicked(arg); });
-                }
-                return tileLeftAndRightClickedCommand;
+                return tileLeftAndRightClickedCommand ?? (tileLeftAndRightClickedCommand = new RelayCommand((arg) => { HandleTileLeftAndRightClicked(arg); }));
             }
-        }
-
-        private void OnPropertyChanged([CallerMemberName] string propName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
 
         private void HandleTileLeftAndRightClicked(object arg)
