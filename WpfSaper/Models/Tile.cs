@@ -33,9 +33,10 @@ namespace WpfSaper.Models
             {
                 if (state != value)
                 {
+                    var oldState = state;
                     state = value;
                     OnPropertyChanged("State");
-                    OnStateChanged();                    
+                    OnStateChanged(oldState, state);                    
                 }
             }
         }
@@ -94,9 +95,9 @@ namespace WpfSaper.Models
             }
         }
 
-        private void OnStateChanged()
+        private void OnStateChanged(TileState previousState, TileState currentState)
         {
-            StateChanged?.Invoke(this, new StateChangedEventArgs(State));
+            StateChanged?.Invoke(this, new StateChangedEventArgs(previousState, currentState));
         }
 
         private void OnPropertyChanged(string propName)
@@ -115,9 +116,11 @@ namespace WpfSaper.Models
         public class StateChangedEventArgs : EventArgs
         {
             public TileState CurrentState { get; private set; }
+            public TileState PreviousState { get; private set; }
 
-            public StateChangedEventArgs(TileState currentState)
+            public StateChangedEventArgs(TileState previousState, TileState currentState)
             {
+                PreviousState = previousState;
                 CurrentState = currentState;
             }
         }

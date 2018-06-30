@@ -42,6 +42,19 @@ namespace WpfSaper.Models
             }
         }
 
+        public int TilesCovered
+        {
+            get { return tilesCovered; }
+            private set
+            {
+                if (tilesCovered != value)
+                {
+                    tilesCovered = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public List<List<Tile>> Tiles { get; }
 
         public int BombsInMinefiled
@@ -56,13 +69,11 @@ namespace WpfSaper.Models
             }
         }
 
-        internal List<List<Tile>> Tiles1 => Tiles;
-
         private void Tile_StateChanged(object sender, Tile.StateChangedEventArgs e)
         {
             if (sender is Tile tile && e != null)
             {
-                Debug.WriteLine($"{tile.Id}: {e.CurrentState}");
+                Debug.WriteLine($"{tile.Id}: {e.PreviousState} => {e.CurrentState}");
 
                 //Handle covered count
                 if (e.CurrentState == Tile.TileState.Covered)
@@ -78,6 +89,10 @@ namespace WpfSaper.Models
                 if (e.CurrentState == Tile.TileState.Flagged)
                 {
                     TilesFlagged++;
+                }
+                else if (e.PreviousState == Tile.TileState.Flagged)
+                {
+                    TilesFlagged--;
                 }
 
                 //Check end game criteria

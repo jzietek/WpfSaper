@@ -110,6 +110,8 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Services\IDialogService.cs" />
     <Compile Include="Services\Impl\DialogService.cs" />
+    <Compile Include="Services\Impl\NavigationService.cs" />
+    <Compile Include="Services\INavigationService.cs" />
     <Compile Include="ViewModels\AboutWindowViewModel.cs" />
     <Compile Include="ViewModels\GameConfigViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

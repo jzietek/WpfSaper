@@ -1,5 +1,5 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using WpfSaper.Commands;
 using WpfSaper.Models;
@@ -23,16 +23,27 @@ namespace WpfSaper.ViewModels
 
         private Minefield minefield;
         private GameConfig gameConfig;
-        private readonly IDialogService dialogService;
+        private readonly IDialogService dialogService;        
         private readonly IMinefieldFactory minefieldFactory;
-        
-        public MainWindowViewModel()
+        private readonly INavigationService navigationService;
+
+        public MainWindowViewModel(IMinefieldFactory minefieldFactory, 
+            IDialogService dialogService, INavigationService navigationService)
         {
-            minefieldFactory = new MinefieldFactory(new RandomBooleansGenerator());
-            dialogService = new DialogService();
+            this.navigationService = navigationService;
+            this.minefieldFactory = minefieldFactory;
+            this.dialogService = dialogService;
+                        
             gameConfig = new GameConfig();
             gameConfig.SetMedium();
-            Minefield = minefieldFactory.CreateNew(gameConfig);
+            Minefield = minefieldFactory.CreateNew(gameConfig);            
+        }
+
+        public MainWindowViewModel() : this(
+            new MinefieldFactory(new RandomBooleansGenerator()), 
+            new DialogService(), 
+            new NavigationService())
+        {
         }
 
         private void Minefield_GameEnded(object sender, Minefield.GameEndedEventArgs e)
@@ -107,7 +118,7 @@ namespace WpfSaper.ViewModels
         {
             get
             {
-                return exitApplicationCommand ?? (exitApplicationCommand = new RelayCommand((arg) => { Application.Current.Shutdown(); }));
+                return exitApplicationCommand ?? (exitApplicationCommand = new RelayCommand((arg) => { System.Windows.Application.Current.Shutdown(); }));
             }
         }
 
@@ -170,12 +181,11 @@ namespace WpfSaper.ViewModels
         }
 
         private void ConfigureAndStartNewGame(Window mainWindow)
-        {
-            var gameConfigWindow = new GameConfigWindow() { Owner = mainWindow };
-
-            if (gameConfigWindow.ShowDialog().GetValueOrDefault())
+        {            
+            GameConfig newGameConfig = navigationService.ShowGameConfigDialog(mainWindow);
+            if (newGameConfig != null)
             {
-                gameConfig = gameConfigWindow.GameConfig;
+                gameConfig = newGameConfig;
                 StartGame();
             }
         }
@@ -185,10 +195,9 @@ namespace WpfSaper.ViewModels
             Minefield = minefieldFactory.CreateNew(gameConfig);
         }
 
-        private static void ShowAboutBoxWindow(Window mainWindow)
+        private void ShowAboutBoxWindow(Window mainWindow)
         {
-            AboutWindow aboutWindow = new AboutWindow() { Owner = mainWindow };
-            aboutWindow.Show();
+            navigationService.ShowAboutBoxDialog(mainWindow);
         }
 
         private void ShowHeyMessage()

@@ -36,7 +36,7 @@ namespace WpfSaper.Tests.Services
         {
             IBooleansGenerator generator = new RandomBooleansGenerator();
             bool[] result = generator.GenerateBooleans(10, 0);
-            result.All(x => x).ShouldBeTrue();
+            result.All(x => !x).ShouldBeTrue();
         }
 
         [TestCase(10,7)]

@@ -59,3 +59,5 @@ using System.Windows;
 
 [assembly: NeutralResourcesLanguage("pl-PL")]
 [assembly: CLSCompliant(false)]
+
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

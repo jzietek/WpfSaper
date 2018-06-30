@@ -22,6 +22,8 @@ namespace WpfSaper.ViewModels
             get { return isCustomSelected;}
             set
             {
+                if (value) UnsetAll();
+
                 Set(ref isCustomSelected, value);
                 if (isCustomSelected)
                 {
@@ -41,6 +43,8 @@ namespace WpfSaper.ViewModels
             get { return isEasySelected; }
             set
             {
+                if (value) UnsetAll();
+
                 Set(ref isEasySelected, value);
                 if (isEasySelected)
                     GameConfig.SetEasy();
@@ -52,10 +56,20 @@ namespace WpfSaper.ViewModels
             get { return isMediumSelected; }
             set
             {
+                if (value) UnsetAll();
+
                 Set(ref isMediumSelected, value);
                 if (isMediumSelected)
                     GameConfig.SetMedium();
             }
+        }
+
+        private void UnsetAll()
+        {
+            IsEasySelected = false;
+            IsMediumSelected = false;
+            IsHardSelected = false;
+            IsCustomSelected = false;
         }
 
         public bool IsHardSelected
@@ -63,9 +77,13 @@ namespace WpfSaper.ViewModels
             get { return isHardSelected; }
             set
             {
+                if (value) UnsetAll();
+
                 Set(ref isHardSelected, value);
                 if (isHardSelected)
-                    GameConfig.SetHard();
+                {
+                    GameConfig.SetHard();                    
+                }
             }
         }
 
