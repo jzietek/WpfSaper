@@ -11,11 +11,6 @@ namespace WpfSaper
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void TileControl_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(Loc.MainWindow_HeyMessage, Loc.MainWindow_HeyMessage_Title, MessageBoxButton.OK, MessageBoxImage.Stop);
-        }
+        }        
     }
 }

@@ -8,11 +8,14 @@ namespace WpfSaper.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#")]
         protected bool Set<T>(ref T oldValue, T newValue, [CallerMemberName] string propertyName = null)
         {
             if (!EqualityComparer<T>.Default.Equals(oldValue,newValue))

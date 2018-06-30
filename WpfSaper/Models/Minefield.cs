@@ -12,6 +12,7 @@ namespace WpfSaper.Models
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler<GameEndedEventArgs> GameEnded;
         public bool IsGameEnded;
+
         private int bombsInMinefield = -1;
         private int tilesCovered;
         private int tilesFlagged = 0;
@@ -61,7 +62,7 @@ namespace WpfSaper.Models
         {
             if (sender is Tile tile && e != null)
             {
-                System.Diagnostics.Debug.WriteLine($"{tile.Id}: {e.CurrentState}");
+                Debug.WriteLine($"{tile.Id}: {e.CurrentState}");
 
                 //Handle covered count
                 if (e.CurrentState == Tile.TileState.Covered)
@@ -73,6 +74,7 @@ namespace WpfSaper.Models
                     tilesCovered--;
                 }
 
+                //Handle flags count
                 if (e.CurrentState == Tile.TileState.Flagged)
                 {
                     TilesFlagged++;
@@ -90,16 +92,22 @@ namespace WpfSaper.Models
                     return;
                 }
 
-                //Propagate uncovering for covered ones
-                if (tile.State == Tile.TileState.Uncovered && tile.BombsAround == 0)
-                {
-                    Debug.WriteLine($"Propagating uncovering from tile Id: {tile.Id}");
+                PropagateUncovering(tile);
+            }
+        }
 
-                    var coveredNeighbours = tile.Neighbours.Where(n => n.State == Tile.TileState.Covered);
-                    foreach (var n in coveredNeighbours)
-                    {
-                        n.UncoverTile();
-                    }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+        private static void PropagateUncovering(Tile tile)
+        {
+            //For uncovered neighbours
+            if (tile.State == Tile.TileState.Uncovered && tile.BombsAround == 0)
+            {
+                Debug.WriteLine($"Propagating uncovering from tile Id: {tile.Id}");
+
+                var coveredNeighbours = tile.Neighbours.Where(n => n.State == Tile.TileState.Covered);
+                foreach (var n in coveredNeighbours)
+                {
+                    n.UncoverTile();
                 }
             }
         }

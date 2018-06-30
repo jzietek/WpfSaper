@@ -39,7 +39,13 @@
                         Command="{Binding Source={StaticResource mainWindowViewModel}, Path=RestartGameCommand}" 
                         Content="{x:Static loc:Resources.MainWindow_RestartButton_Text}" />
                 <WrapPanel Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,5,0">
-                    <controls:TileControl TileState="Flagged" Click="TileControl_Click" />
+                    <controls:TileControl TileState="Flagged" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding Source={StaticResource mainWindowViewModel}, Path=DummyTileClickedCommand}" />
+                            </i:EventTrigger>                            
+                        </i:Interaction.Triggers>
+                    </controls:TileControl>
                     <WrapPanel Margin="3,3,0,0">
                         <WrapPanel.Resources>
                             <Style TargetType="TextBlock">

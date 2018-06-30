@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using WpfSaper.Commands;
 using WpfSaper.Models;
@@ -18,14 +19,17 @@ namespace WpfSaper.ViewModels
         private ICommand tileClickedCommand;
         private ICommand tileRightClickedCommand;
         private ICommand tileLeftAndRightClickedCommand;
+        private ICommand dummyTileClickedCommand;
 
         private Minefield minefield;
         private GameConfig gameConfig;
+        private readonly IDialogService dialogService;
         private readonly IMinefieldFactory minefieldFactory;
-
+        
         public MainWindowViewModel()
         {
             minefieldFactory = new MinefieldFactory(new RandomBooleansGenerator());
+            dialogService = new DialogService();
             gameConfig = new GameConfig();
             gameConfig.SetMedium();
             Minefield = minefieldFactory.CreateNew(gameConfig);
@@ -36,11 +40,11 @@ namespace WpfSaper.ViewModels
             MessageBoxResult result;
             if (e.IsWon)
             {
-                result = MessageBox.Show(Loc.MainWindow_Message_GameWon_Text, Loc.MainWindow_Message_GameWon_Title, MessageBoxButton.YesNo);
+                result = dialogService.Show(Loc.MainWindow_Message_GameWon_Text, Loc.MainWindow_Message_GameWon_Title, MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
             }
             else
             {
-                result = MessageBox.Show(Loc.MainWindow_Message_GameLost_Text, Loc.MainWindow_Message_GameLost_Title, MessageBoxButton.YesNo);
+                result = dialogService.Show(Loc.MainWindow_Message_GameLost_Text, Loc.MainWindow_Message_GameLost_Title, MessageBoxButton.YesNo, MessageBoxImage.Hand);
             }
 
             if (result == MessageBoxResult.No)
@@ -66,6 +70,14 @@ namespace WpfSaper.ViewModels
                 }
             }
         }
+
+        public ICommand DummyTileClickedCommand
+        {
+            get
+            {
+                return dummyTileClickedCommand ?? (dummyTileClickedCommand = new RelayCommand(_ => { ShowHeyMessage(); }));
+            }
+        }       
 
         public ICommand ShowAboutBoxCommand
         {
@@ -111,7 +123,7 @@ namespace WpfSaper.ViewModels
         {
             get
             {
-                return tileRightClickedCommand ?? (tileRightClickedCommand = new RelayCommand((arg) => { HandleTileRightClicked(arg); })); ;
+                return tileRightClickedCommand ?? (tileRightClickedCommand = new RelayCommand((arg) => { HandleTileRightClicked(arg); }));
             }
         }
 
@@ -150,7 +162,7 @@ namespace WpfSaper.ViewModels
 
         private void HandleTileClicked(object arg)
         {
-            System.Diagnostics.Debug.WriteLine("Left  clicked");
+            System.Diagnostics.Debug.WriteLine("Left clicked");
             if (!minefield.IsGameEnded)
             {
                 (arg as Tile)?.UncoverTile();
@@ -177,6 +189,11 @@ namespace WpfSaper.ViewModels
         {
             AboutWindow aboutWindow = new AboutWindow() { Owner = mainWindow };
             aboutWindow.Show();
+        }
+
+        private void ShowHeyMessage()
+        {
+            dialogService.Show(Loc.MainWindow_HeyMessage, Loc.MainWindow_HeyMessage_Title, MessageBoxButton.OK, MessageBoxImage.Stop);
         }
     }
 }

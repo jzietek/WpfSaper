@@ -1,0 +1,11 @@
+{
+  "ServerUri": "http://192.168.99.100:9000",
+  "Organization": null,
+  "ProjectKey": "WpfSaper",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AWQ-C0s8WfBasR4DoxVX",
+      "ProfileTimestamp": "2018-06-26T23:41:24+02:00"
+    }
+  }
+}

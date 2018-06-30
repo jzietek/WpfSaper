@@ -28,7 +28,7 @@ namespace WpfSaper.Tests.Services
         {
             IBooleansGenerator generator = new RandomBooleansGenerator();
             bool[] result = generator.GenerateBooleans(10, 10);
-            result.All(x => x == true).ShouldBeTrue();
+            result.All(x => x).ShouldBeTrue();
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace WpfSaper.Tests.Services
         {
             IBooleansGenerator generator = new RandomBooleansGenerator();
             bool[] result = generator.GenerateBooleans(10, 0);
-            result.All(x => x == false).ShouldBeTrue();
+            result.All(x => x).ShouldBeTrue();
         }
 
         [TestCase(10,7)]
@@ -48,8 +48,8 @@ namespace WpfSaper.Tests.Services
             IBooleansGenerator generator = new RandomBooleansGenerator();
             bool[] result = generator.GenerateBooleans(allCount, positivesCount);
             result.Length.ShouldBe(allCount);
-            result.Count(x => x == true).ShouldBe(positivesCount);
-            result.Count(x => x == false).ShouldBe(allCount - positivesCount);
+            result.Count(x => x).ShouldBe(positivesCount);
+            result.Count(x => !x).ShouldBe(allCount - positivesCount);
         }
 
         [TestCase(5,3,13)]

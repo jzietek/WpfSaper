@@ -38,7 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>WpfSaper.Debug.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -49,6 +49,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>WpfSaper.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -107,6 +108,8 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BombsAroundConverter.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Services\IDialogService.cs" />
+    <Compile Include="Services\Impl\DialogService.cs" />
     <Compile Include="ViewModels\AboutWindowViewModel.cs" />
     <Compile Include="ViewModels\GameConfigViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -177,6 +180,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="WpfSaper.Debug.ruleset" />
+    <None Include="WpfSaper.ruleset" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

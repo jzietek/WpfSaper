@@ -44,7 +44,9 @@ namespace WpfSaper.Services.Impl
             return new Minefield(tiles);
         }
 
+#pragma warning disable S3776 // Cognitive Complexity of methods should not be too high
         private static void AssignNeighbours(Minefield minefield)
+#pragma warning restore S3776 // Cognitive Complexity of methods should not be too high
         {
             int rowsCount = minefield.Tiles.Count;
             for (int i = 0; i < rowsCount; i++)
@@ -75,6 +77,6 @@ namespace WpfSaper.Services.Impl
                     minefield.Tiles[i][j].SetNeighbours(neighbours);
                 }
             }
-        }        
+        }
     }
 }
